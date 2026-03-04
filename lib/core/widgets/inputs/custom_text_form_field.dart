@@ -1,0 +1,49 @@
+import 'package:bookia/core/styles/colors.dart';
+import 'package:bookia/core/styles/text_styles.dart';
+import 'package:flutter/material.dart';
+
+class CustomTextFormField extends StatelessWidget {
+  const CustomTextFormField({
+    super.key,
+    required this.hintText,
+    this.validator,
+    this.keyboardType,
+    this.controller,
+    this.prefixIcon,
+    this.onTap,
+    this.readOnly = false,
+    this.onChanged,
+  });
+
+  final String hintText;
+  final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
+  final TextEditingController? controller;
+  final Widget? prefixIcon;
+  final Function()? onTap;
+  final Function(String)? onChanged;
+  final bool readOnly;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 22),
+      child: TextFormField(
+        controller: controller,
+        readOnly: readOnly,
+        keyboardType: keyboardType,
+        textInputAction: TextInputAction.next,
+        onTapOutside: (event) {
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        decoration: InputDecoration(
+          prefixIcon: prefixIcon,
+          hintText: hintText,
+          hintStyle: TextStyles.fs14.copyWith(color: AppColors.darkGray),
+        ),
+        validator: validator,
+        onChanged: onChanged,
+        onTap: onTap,
+      ),
+    );
+  }
+}
