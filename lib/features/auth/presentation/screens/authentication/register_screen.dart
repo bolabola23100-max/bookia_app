@@ -1,54 +1,48 @@
 import 'dart:developer';
 
 import 'package:bookia/core/utils/navigations.dart';
-import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/utils/validators.dart';
 import 'package:bookia/core/widgets/custom_back_button.dart';
 import 'package:bookia/core/widgets/dialog.dart';
 import 'package:bookia/core/widgets/inputs/custom_text_form_field.dart';
 import 'package:bookia/core/widgets/inputs/main_button.dart';
+import 'package:bookia/core/widgets/inputs/password_text_form_field.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bookia/features/auth/presentation/screens/authentication/login_screen.dart';
-import 'package:bookia/features/auth/presentation/screens/verification_screens/otp_screen.dart';
 import 'package:bookia/features/auth/presentation/widgets/auth_text_action.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
-class ForgotPasswordScreen extends StatelessWidget {
-  const ForgotPasswordScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AuthCubit(),
       child: Scaffold(
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: AuthTextAction(
-            text1: 'Remember Password?',
-            text2: "Login",
-            onPressed: () {
-              pushTo(context, LoginScreen());
-            },
-          ),
+        bottomNavigationBar: AuthTextAction(
+          text1: "Already have an account?",
+          text2: " Login Now",
+          onPressed: () {
+            pushTo(context, LoginScreen());
+          },
         ),
         appBar: AppBar(leading: CustomBackButton()),
-        body: _forgotPassword(),
+        body: _registerBody(),
       ),
     );
   }
 
-  Widget _forgotPassword() {
+  Widget _registerBody() {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-        var cubit = context.read<AuthCubit>();
-
         if (state is AuthSuccessState) {
           pop(context);
-          pushTo(context, OtpScreen(text: cubit.emailController.text));
+
           log("success");
         } else if (state is AuthErrorState) {
           pop(context);
@@ -60,52 +54,65 @@ class ForgotPasswordScreen extends StatelessWidget {
       },
       builder: (context, state) {
         var cubit = context.read<AuthCubit>();
-
         return SingleChildScrollView(
           child: Form(
             key: cubit.formKey,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             child: Column(
               children: [
-                Gap(30),
-                Padding(
-                  padding: const EdgeInsets.only(left: 24),
-                  child: Align(
-                    alignment: AlignmentGeometry.topLeft,
-                    child: Text("Forgot Password?", style: TextStyles.fs30),
-                  ),
-                ),
-                Gap(10),
+                Gap(28),
                 Padding(
                   padding: const EdgeInsets.only(left: 24),
                   child: Align(
                     alignment: AlignmentGeometry.topLeft,
                     child: Text(
-                      "Don't worry! It occurs. Please enter the email address linked with your account.",
-                      style: TextStyles.fs16.copyWith(
-                        color: AppColors.darkGray,
-                      ),
+                      "Hello! Register to get started",
+                      style: TextStyles.fs30,
                     ),
                   ),
                 ),
-                SizedBox(height: 36),
+                Gap(32),
 
                 CustomTextFormField(
-                  hintText: "Enter your email",
+                  controller: cubit.usernameController,
+                  hintText: 'Username',
+                  validator: Validators().validatorName,
+                ),
+                Gap(11),
+
+                CustomTextFormField(
                   controller: cubit.emailController,
+                  hintText: "Email",
                   validator: Validators().validatorEmail,
                 ),
-                SizedBox(height: 46),
+                Gap(11),
+
+                PasswordTextFormField(
+                  controller: cubit.passwordController,
+                  text: 'Password',
+                  validator: Validators().validatorPassword,
+                ),
+
+                Gap(12),
+                PasswordTextFormField(
+                  controller: cubit.confirmPasswordController,
+                  text: 'Confirm password',
+                  validator: (input) => Validators().validatorConfirmPassword(
+                    input,
+                    cubit.passwordController.text,
+                  ),
+                ),
+                Gap(30),
 
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 22),
                   child: MainButton(
                     onPressed: () {
                       if (cubit.formKey.currentState!.validate()) {
-                        cubit.forgetPassword();
+                        cubit.register();
                       }
                     },
-                    text: "Send Code",
+                    text: "Register",
                   ),
                 ),
               ],
