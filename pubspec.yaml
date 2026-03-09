@@ -1,6 +1,6 @@
 name: bookia
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
@@ -9,9 +9,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_bloc: ^9.1.1
   flutter_svg: ^2.2.3
   gap: ^3.0.1
   pinput: ^6.0.2
+  dio: ^5.9.2
+  lottie: ^3.3.2
 
 dev_dependencies:
   flutter_test:
@@ -26,5 +29,5 @@ flutter:
 
 fonts:
   - family: DMSerif
-    fonts: 
+    fonts:
       - assets: assets/fonts/DMSerifDisplay-Regular.ttf

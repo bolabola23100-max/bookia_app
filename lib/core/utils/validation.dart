@@ -13,9 +13,9 @@ bool isName(String name) {
 }
 
 bool isPassword(String password) {
-  return RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{6,}$').hasMatch(password);
-} 
+  return RegExp(r'^[0-9]+$').hasMatch(password);
+}
+
 bool isConfirmPassword(String password, String confirmPassword) {
   return password == confirmPassword;
 }
-

@@ -1,5 +1,5 @@
 import 'package:bookia/core/constants/app_icons.dart';
-import 'package:bookia/core/functions/navigations.dart';
+import 'package:bookia/core/utils/navigations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
