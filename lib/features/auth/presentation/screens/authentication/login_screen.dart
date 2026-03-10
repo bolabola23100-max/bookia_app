@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:bookia/core/constants/app_icons.dart';
-import 'package:bookia/core/utils/navigations.dart';
+import 'package:bookia/core/routes/routes.dart';
 
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
@@ -12,13 +12,12 @@ import 'package:bookia/core/widgets/inputs/custom_text_form_field.dart';
 import 'package:bookia/core/widgets/inputs/main_button.dart';
 import 'package:bookia/core/widgets/inputs/password_text_form_field.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_cubit.dart';
-import 'package:bookia/features/auth/presentation/screens/authentication/register_screen.dart';
-import 'package:bookia/features/auth/presentation/screens/verification_screens/forgot_password_screen.dart';
 import 'package:bookia/features/auth/presentation/widgets/auth_text_action.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -32,7 +31,7 @@ class LoginScreen extends StatelessWidget {
           text1: 'Don\'t have an account? ',
           text2: 'Register Now',
           onPressed: () {
-            pushTo(context, RegisterScreen());
+            context.go(Routes.register);
           },
         ),
         appBar: AppBar(leading: CustomBackButton()),
@@ -45,12 +44,9 @@ class LoginScreen extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthSuccessState) {
-          pop(context);
-          print("done");
+          context.go(Routes.mainAppScreen);
           log("success");
         } else if (state is AuthErrorState) {
-          pop(context);
-
           showErrorDialog(context, state.message);
         } else if (state is AuthLoadingState) {
           showLoading(context);
@@ -91,7 +87,7 @@ class LoginScreen extends StatelessWidget {
                   child: TextButton(
                     style: TextButton.styleFrom(minimumSize: Size.zero),
                     onPressed: () {
-                      pushTo(context, ForgotPasswordScreen());
+                      context.go(Routes.forgotPassword);
                     },
                     child: Text(
                       "Forgot Password?",

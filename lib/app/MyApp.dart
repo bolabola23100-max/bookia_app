@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:bookia/app/ThemeData.dart';
-import 'package:bookia/features/on_boarding_screens/screens/splash_screen.dart';
+import 'package:bookia/core/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 class MainApp extends StatelessWidget {
@@ -9,11 +9,11 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
 
       theme: themeData(),
-
+      routerConfig: router,
       builder: (context, child) {
         return SafeArea(
           top: false,
@@ -21,7 +21,6 @@ class MainApp extends StatelessWidget {
           child: child ?? Scaffold(),
         );
       },
-      home: SplashScreen(),
     );
   }
 }

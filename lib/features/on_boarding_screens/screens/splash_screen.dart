@@ -1,10 +1,11 @@
 import 'package:bookia/core/constants/app_icons.dart';
-import 'package:bookia/core/utils/navigations.dart';
+import 'package:bookia/core/routes/routes.dart';
+import 'package:bookia/core/services/local/shared_pref.dart';
 import 'package:bookia/core/styles/text_styles.dart';
-import 'package:bookia/features/on_boarding_screens/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,9 +17,14 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+    String? token = SharedPref.getToken();
     super.initState();
     Future.delayed(Duration(seconds: 3), () {
-      pushReplacement(context, WelcomePage());
+      if (token != null && token.isNotEmpty) {
+        context.go(Routes.mainAppScreen);
+      } else {
+        context.go(Routes.welcome);
+      }
     });
   }
 
