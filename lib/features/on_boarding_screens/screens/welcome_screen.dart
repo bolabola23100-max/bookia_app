@@ -1,13 +1,13 @@
 import 'package:bookia/core/constants/app_icons.dart';
-import 'package:bookia/core/utils/navigations.dart';
+import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/widgets/inputs/main_button.dart';
-import 'package:bookia/features/auth/presentation/screens/authentication/login_screen.dart';
-import 'package:bookia/features/auth/presentation/screens/authentication/register_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -40,7 +40,7 @@ class WelcomePage extends StatelessWidget {
                   Spacer(flex: 3),
                   MainButton(
                     onPressed: () {
-                      pushTo(context, LoginScreen());
+                      context.go(Routes.login);
                     },
                     text: "Login",
                     borderRadius: 10,
@@ -48,7 +48,8 @@ class WelcomePage extends StatelessWidget {
                   SizedBox(height: 20),
                   MainButton(
                     onPressed: () {
-                      pushTo(context, RegisterScreen());
+                      // pushTo(context, RegisterScreen());
+                      context.go(Routes.register);
                     },
                     text: "Register",
                     borderRadius: 10,

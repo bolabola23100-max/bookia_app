@@ -51,6 +51,8 @@ ThemeData themeData() {
       elevation: 0,
       selectedLabelStyle: TextStyle(fontWeight: FontWeight.w700, height: 2),
       unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w700, height: 2),
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
     ),
   );
 }

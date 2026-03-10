@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/utils/navigations.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
@@ -9,10 +10,10 @@ import 'package:bookia/core/widgets/dialog.dart';
 import 'package:bookia/core/widgets/inputs/main_button.dart';
 import 'package:bookia/core/widgets/inputs/password_text_form_field.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_cubit.dart';
-import 'package:bookia/features/auth/presentation/screens/verification_screens/password_changed.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class CreateNewPassword extends StatelessWidget {
   const CreateNewPassword({
@@ -38,8 +39,7 @@ class CreateNewPassword extends StatelessWidget {
           listener: (context, state) {
             if (state is AuthSuccessState) {
               pop(context);
-              pushReplacement(context, PasswordChanged());
-
+              context.pushReplacement(Routes.passwordChanged);
               log("success");
             } else if (state is AuthErrorState) {
               pop(context);

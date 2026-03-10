@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/utils/navigations.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
@@ -9,13 +10,12 @@ import 'package:bookia/core/widgets/dialog.dart';
 import 'package:bookia/core/widgets/inputs/custom_text_form_field.dart';
 import 'package:bookia/core/widgets/inputs/main_button.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_cubit.dart';
-import 'package:bookia/features/auth/presentation/screens/authentication/login_screen.dart';
-import 'package:bookia/features/auth/presentation/screens/verification_screens/otp_screen.dart';
 import 'package:bookia/features/auth/presentation/widgets/auth_text_action.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({super.key});
@@ -31,7 +31,7 @@ class ForgotPasswordScreen extends StatelessWidget {
             text1: 'Remember Password?',
             text2: "Login",
             onPressed: () {
-              pushTo(context, LoginScreen());
+              context.go(Routes.login);
             },
           ),
         ),
@@ -44,11 +44,9 @@ class ForgotPasswordScreen extends StatelessWidget {
   Widget _forgotPassword() {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-        var cubit = context.read<AuthCubit>();
-
         if (state is AuthSuccessState) {
           pop(context);
-          pushTo(context, OtpScreen(text: cubit.emailController.text));
+          context.go(Routes.otp);
           log("success");
         } else if (state is AuthErrorState) {
           pop(context);

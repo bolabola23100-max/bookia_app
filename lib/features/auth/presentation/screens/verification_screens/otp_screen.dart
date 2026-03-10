@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/utils/navigations.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
@@ -8,12 +9,12 @@ import 'package:bookia/core/widgets/custom_back_button.dart';
 import 'package:bookia/core/widgets/dialog.dart';
 import 'package:bookia/core/widgets/inputs/main_button.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_cubit.dart';
-import 'package:bookia/features/auth/presentation/screens/verification_screens/create_new_password.dart';
 import 'package:bookia/features/auth/presentation/widgets/auth_text_action.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpScreen extends StatefulWidget {
@@ -74,17 +75,10 @@ class _OtpScreenState extends State<OtpScreen> {
   BlocConsumer<AuthCubit, AuthState> _otpCode() {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-        var cubit = context.read<AuthCubit>();
         if (state is AuthSuccessState) {
           pop(context);
-          pushReplacement(
-            context,
-            CreateNewPassword(
-              email: cubit.emailController.text,
-              otpCode: cubit.pinController.text,
-            ),
-          );
 
+          context.go(Routes.createNewPassword);
 
           log("success");
         } else if (state is AuthErrorState) {

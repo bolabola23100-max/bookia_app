@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/utils/navigations.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/utils/validators.dart';
@@ -9,12 +10,12 @@ import 'package:bookia/core/widgets/inputs/custom_text_form_field.dart';
 import 'package:bookia/core/widgets/inputs/main_button.dart';
 import 'package:bookia/core/widgets/inputs/password_text_form_field.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_cubit.dart';
-import 'package:bookia/features/auth/presentation/screens/authentication/login_screen.dart';
 import 'package:bookia/features/auth/presentation/widgets/auth_text_action.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -28,7 +29,7 @@ class RegisterScreen extends StatelessWidget {
           text1: "Already have an account?",
           text2: " Login Now",
           onPressed: () {
-            pushTo(context, LoginScreen());
+            context.go(Routes.login);
           },
         ),
         appBar: AppBar(leading: CustomBackButton()),
