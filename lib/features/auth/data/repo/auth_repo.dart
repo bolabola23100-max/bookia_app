@@ -16,6 +16,7 @@ class AuthRepo {
       if (response.statusCode == 201) {
         var data = AuthResponse.fromJson(response.data);
         SharedPref.setToken(data.data?.token ?? "");
+        SharedPref.setUserInfo(data.data!.user);
         return data;
       } else {
         return null;
@@ -35,6 +36,7 @@ class AuthRepo {
       if (response.statusCode == 200) {
         var data = AuthResponse.fromJson(response.data);
         SharedPref.setToken(data.data?.token ?? "");
+        SharedPref.setUserInfo(data.data!.user);
 
         return data;
       } else {

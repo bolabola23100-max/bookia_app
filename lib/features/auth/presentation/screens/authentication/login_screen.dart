@@ -5,6 +5,7 @@ import 'package:bookia/core/routes/routes.dart';
 
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
+import 'package:bookia/core/utils/navigations.dart';
 import 'package:bookia/core/utils/validators.dart';
 import 'package:bookia/core/widgets/custom_back_button.dart';
 import 'package:bookia/core/widgets/dialog.dart';
@@ -31,7 +32,7 @@ class LoginScreen extends StatelessWidget {
           text1: 'Don\'t have an account? ',
           text2: 'Register Now',
           onPressed: () {
-            context.go(Routes.register);
+            pushTo(context, Routes.register);
           },
         ),
         appBar: AppBar(leading: CustomBackButton()),
@@ -87,7 +88,7 @@ class LoginScreen extends StatelessWidget {
                   child: TextButton(
                     style: TextButton.styleFrom(minimumSize: Size.zero),
                     onPressed: () {
-                      context.go(Routes.forgotPassword);
+                      pushTo(context, Routes.forgotPassword);
                     },
                     child: Text(
                       "Forgot Password?",

@@ -4,8 +4,10 @@ import 'package:bookia/features/auth/presentation/screens/verification_screens/c
 import 'package:bookia/features/auth/presentation/screens/verification_screens/forgot_password_screen.dart';
 import 'package:bookia/features/auth/presentation/screens/verification_screens/otp_screen.dart';
 import 'package:bookia/features/auth/presentation/screens/verification_screens/password_changed.dart';
+import 'package:bookia/features/home/data/models/best_sellers_response/product.dart';
+import 'package:bookia/features/home/presentation/screens/book_details/details_screen.dart';
 import 'package:bookia/features/main/main_app_screen.dart';
-import 'package:bookia/features/main/home/presentation/screens/home_screen.dart';
+import 'package:bookia/features/home/presentation/screens/home_screen.dart';
 import 'package:bookia/features/on_boarding_screens/screens/splash_screen.dart';
 import 'package:bookia/features/on_boarding_screens/screens/welcome_screen.dart';
 import 'package:go_router/go_router.dart';
@@ -21,6 +23,7 @@ class Routes {
   static const String welcome = "/welcome";
   static const String mainAppScreen = "/mainAppScreen";
   static const String home = "/home";
+  static const String details = "/details";
 }
 
 GoRouter router = GoRouter(
@@ -53,5 +56,10 @@ GoRouter router = GoRouter(
       builder: (context, state) => MainAppScreen(),
     ),
     GoRoute(path: Routes.home, builder: (context, state) => HomeScreen()),
+    GoRoute(
+      path: Routes.details,
+      builder: (context, state) =>
+          DetailsScreen(product: state.extra as Product),
+    ),
   ],
 );

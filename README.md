@@ -24,18 +24,24 @@ A beautiful, feature-rich Flutter application designed for book lovers. This app
 <div align="center">
   <table>
     <tr>
-      <td align="center"><b>Splash Screen</b><br><img src="Screenshots/splash_screen.jpeg" width="200"/></td>
-      <td align="center"><b>Welcome</b><br><img src="Screenshots/welcome_screen.jpeg" width="200"/></td>
+      <td align="center"><b>Splash Screen</b><br><img src="Screenshots/splash_screen.jpeg" width="180"/></td>
+      <td align="center"><b>Welcome</b><br><img src="Screenshots/welcome_screen.jpeg" width="180"/></td>
+      <td align="center"><b>Register</b><br><img src="Screenshots/register_screen.jpeg" width="180"/></td>
     </tr>
     <tr>
-      <td align="center"><b>Login</b><br><img src="Screenshots/login_screen.jpeg" width="200"/></td>
-      <td align="center"><b>Forgot Password</b><br><img src="Screenshots/forgot_password_screen.jpeg" width="200"/></td>
+      <td align="center"><b>Login</b><br><img src="Screenshots/login_screen.jpeg" width="180"/></td>
+      <td align="center"><b>Forgot Password</b><br><img src="Screenshots/forgot_password_screen.jpeg" width="180"/></td>
+      <td align="center"><b>OTP Verification</b><br><img src="Screenshots/otp_screen2.jpeg" width="180"/></td>
     </tr>
     <tr>
-      <td align="center"><b>OTP (Step 2)</b><br><img src="Screenshots/otp_screen2.jpeg" width="200"/></td>
-      <td align="center"><b>New Password</b><br><img src="Screenshots/create_new_password.jpeg" width="200"/></td>
+      <td align="center"><b>New Password</b><br><img src="Screenshots/create_new_password.jpeg" width="180"/></td>
+      <td align="center"><b>Password Changed</b><br><img src="Screenshots/password_changed.jpeg" width="180"/></td>
+      <td align="center"><b>Home (Loading)</b><br><img src="Screenshots/home_screen_shimmer.jpeg" width="180"/></td>
+    </tr>
     <tr>
-      <td align="center"><b>Password Changed</b><br><img src="Screenshots/password_changed.jpeg" width="200"/></td><td align="center"><b>OTP (Step 1)</b><br><img src="Screenshots/otp_screen1.jpeg" width="200"/></td>
-    </tr> <td align="center"><b>Register</b><br><img src="Screenshots/register_screen.jpeg" width="200"/></td>
+      <td align="center"><b>Home Screen</b><br><img src="Screenshots/home_screen.jpeg" width="180"/></td>
+      <td align="center"><b>Book Details</b><br><img src="Screenshots/details_screen.jpeg" width="180"/></td>
+      <td align="center">-</td>
+    </tr>
   </table>
 </div>

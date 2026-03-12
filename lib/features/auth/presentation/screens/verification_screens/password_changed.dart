@@ -2,11 +2,11 @@ import 'package:bookia/core/constants/app_icons.dart';
 import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
+import 'package:bookia/core/utils/navigations.dart';
 import 'package:bookia/core/widgets/inputs/main_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 
 class PasswordChanged extends StatelessWidget {
   const PasswordChanged({super.key});
@@ -39,7 +39,7 @@ class PasswordChanged extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 22),
                 child: MainButton(
                   onPressed: () {
-                    context.go(Routes.login);
+                    pushTo(context, Routes.login);
                   },
                   text: "Back to Login",
                 ),

@@ -1,7 +1,7 @@
 import 'package:bookia/core/constants/app_icons.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/widgets/custom__svg__picture.dart';
-import 'package:bookia/features/main/home/presentation/screens/home_screen.dart';
+import 'package:bookia/features/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class MainAppScreen extends StatefulWidget {

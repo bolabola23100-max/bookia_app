@@ -15,7 +15,6 @@ import 'package:bookia/features/auth/presentation/widgets/auth_text_action.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({super.key});
@@ -31,7 +30,7 @@ class ForgotPasswordScreen extends StatelessWidget {
             text1: 'Remember Password?',
             text2: "Login",
             onPressed: () {
-              context.go(Routes.login);
+              pop(context);
             },
           ),
         ),
@@ -46,7 +45,7 @@ class ForgotPasswordScreen extends StatelessWidget {
       listener: (context, state) {
         if (state is AuthSuccessState) {
           pop(context);
-          context.go(Routes.otp);
+          pushTo(context, Routes.otp);
           log("success");
         } else if (state is AuthErrorState) {
           pop(context);

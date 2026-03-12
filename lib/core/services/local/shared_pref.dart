@@ -1,8 +1,12 @@
+import 'dart:convert';
+
+import 'package:bookia/features/auth/data/models/auth_response/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class SharedPref {
   static late SharedPreferences pref;
   static const String tokenKey = "token";
+  static const String userKey = "user";
   static init() async {
     pref = await SharedPreferences.getInstance();
   }
@@ -15,7 +19,26 @@ abstract class SharedPref {
     return pref.getString(tokenKey);
   }
 
-  static Future<void> cachData(String key, dynamic value) async {
+  static Future<void> setUserInfo(User? model) async {
+    if (model == null) {
+      return;
+    }
+    var userJson = model.toJson();
+    var userJsonString = jsonEncode(userJson);
+    await pref.setString(userKey, userJsonString);
+  }
+
+  static User? getUserInfo() {
+    var cachedUser = pref.getString(userKey);
+    if (cachedUser == null) {
+      return null;
+    }
+    var userJson = jsonDecode(cachedUser);
+    var userObject = User.fromJson(userJson);
+    return userObject;
+  }
+
+  static Future<void> cacheData(String key, dynamic value) async {
     if (value is String) {
       await pref.setString(key, value);
     } else if (value is int) {

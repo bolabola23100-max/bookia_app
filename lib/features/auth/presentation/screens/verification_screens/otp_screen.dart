@@ -14,7 +14,6 @@ import 'package:bookia/features/auth/presentation/widgets/auth_text_action.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpScreen extends StatefulWidget {
@@ -78,7 +77,7 @@ class _OtpScreenState extends State<OtpScreen> {
         if (state is AuthSuccessState) {
           pop(context);
 
-          context.go(Routes.createNewPassword);
+          pushTo(context, Routes.createNewPassword);
 
           log("success");
         } else if (state is AuthErrorState) {
