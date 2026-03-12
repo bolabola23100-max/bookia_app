@@ -29,7 +29,7 @@ class RegisterScreen extends StatelessWidget {
           text1: "Already have an account?",
           text2: " Login Now",
           onPressed: () {
-            context.go(Routes.login);
+            pop(context);
           },
         ),
         appBar: AppBar(leading: CustomBackButton()),
@@ -42,8 +42,7 @@ class RegisterScreen extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthSuccessState) {
-          pop(context);
-
+          context.go(Routes.mainAppScreen);
           log("success");
         } else if (state is AuthErrorState) {
           pop(context);

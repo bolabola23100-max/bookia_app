@@ -5,8 +5,8 @@ void pushReplacement(BuildContext context, String route) {
   context.pushReplacement(route);
 }
 
-void pushTo(BuildContext context, String route) {
-  context.push(route);
+void pushTo(BuildContext context, String route, {Object? extra}) {
+  context.push(route, extra: extra);
 }
 
 void pop(BuildContext context) {
