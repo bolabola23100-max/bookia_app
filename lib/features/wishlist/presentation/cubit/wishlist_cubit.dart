@@ -1,3 +1,4 @@
+import 'package:bookia/core/services/local/shared_pref.dart';
 import 'package:bookia/features/home/data/models/best_sellers_response/product.dart';
 import 'package:bookia/features/wishlist/data/repo/wishlist_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +13,9 @@ class WishlistCubit extends Cubit<WishlistState> {
     var data = await WishlistRepo().getWishlist();
     if (data != null) {
       products = data.data!.data ?? [];
+
+    SharedPref.cacheWishListIds(products);
+
       emit(WishlistSuccessState());
     } else {
       emit(WishlistErrorState());
@@ -23,9 +27,13 @@ class WishlistCubit extends Cubit<WishlistState> {
     var data = await WishlistRepo().removeFromWishlist(productId);
     if (data != null) {
       products = data.data!.data ?? [];
+      SharedPref.cacheWishListIds(products);
+
       emit(WishlistSuccessState());
     } else {
-      emit(WishlistErrorState());
+      emit(WishlistErrorState());     
     }
   }
+
+  
 }

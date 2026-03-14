@@ -1,12 +1,14 @@
 import 'dart:convert';
 
 import 'package:bookia/features/auth/data/models/auth_response/user.dart';
+import 'package:bookia/features/home/data/models/best_sellers_response/product.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class SharedPref {
   static late SharedPreferences pref;
   static const String tokenKey = "token";
   static const String userKey = "user";
+  static const String wishlistKey = "wishlist";
   static Future<void> init() async {
     pref = await SharedPreferences.getInstance();
   }
@@ -38,6 +40,20 @@ abstract class SharedPref {
     return userObject;
   }
 
+  static void cacheWishListIds(List<Product> items) {
+    var ids = items.map((item) => item.id.toString()).toList();
+    cacheData(wishlistKey, ids);
+  }
+
+  static List<int> getWishListIds() {
+    var ids = pref.getStringList(wishlistKey);
+    if (ids != null) {
+      return ids.map((id) => int.tryParse(id) ?? 0).toList();
+    } else {
+      return [];
+    }
+  }
+
   static Future<void> cacheData(String key, dynamic value) async {
     if (value is String) {
       await pref.setString(key, value);
@@ -47,10 +63,12 @@ abstract class SharedPref {
       await pref.setBool(key, value);
     } else if (value is double) {
       await pref.setDouble(key, value);
+    } else if (value is List<String>) {
+      await pref.setStringList(key, value);
     }
   }
 
-  static String getData(String key) {
+  static dynamic getData(String key) {
     return pref.getString(key) ?? "";
   }
 

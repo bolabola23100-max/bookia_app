@@ -14,9 +14,17 @@ class WishlistBooks extends StatelessWidget {
         if (state is WishlistSuccessState) {
           var books = context.read<WishlistCubit>().products;
           if (books.isEmpty) {
-            return Align(
-              alignment: Alignment.center,
-              child: Text("No books in wishlist"),
+            return Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24,
+                vertical: 250,
+              ),
+              child: Center(
+                child: Text(
+                  "No books in wishlist",
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
             );
           }
           return GridView.builder(
@@ -31,7 +39,12 @@ class WishlistBooks extends StatelessWidget {
             ),
             itemCount: books.length,
             itemBuilder: (context, index) {
-              return WishlistCard(product: books[index]);
+              return WishlistCard(
+                product: books[index],
+                onRefresh: () {
+                  context.read<WishlistCubit>().getWishlist();
+                },
+              );
             },
           );
         } else if (state is WishlistErrorState) {

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 void pushReplacement(BuildContext context, String route) {
-  context.pushReplacement(route);
+  return context.pushReplacement(route);
 }
 
-void pushTo(BuildContext context, String route, {Object? extra}) {
-  context.push(route, extra: extra);
+Future pushTo(BuildContext context, String route, {Object? extra}) {
+  return context.push(route, extra: extra);
 }
 
 void pop(BuildContext context) {
-  context.pop();
+  return context.pop();
 }
