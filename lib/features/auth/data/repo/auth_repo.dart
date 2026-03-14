@@ -13,7 +13,7 @@ class AuthRepo {
         endpoint: Apis.register,
         data: params.toJson(),
       );
-      if (response.statusCode == 201) {
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
         var data = AuthResponse.fromJson(response.data);
         SharedPref.setToken(data.data?.token ?? "");
         SharedPref.setUserInfo(data.data!.user);
@@ -33,7 +33,7 @@ class AuthRepo {
         endpoint: Apis.login,
         data: params.toJson(),
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
         var data = AuthResponse.fromJson(response.data);
         SharedPref.setToken(data.data?.token ?? "");
         SharedPref.setUserInfo(data.data!.user);

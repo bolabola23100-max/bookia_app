@@ -3,13 +3,21 @@ import 'package:bookia/core/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-void showErrorDialog(BuildContext context, String errorMsg) {
+enum DialogType { error, success }
+
+void showAppSnackBar(
+  BuildContext context,
+  String errorMsg, {
+  DialogType type = DialogType.error,
+}) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       margin: EdgeInsets.all(10),
       behavior: SnackBarBehavior.floating,
       shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(5)),
-      backgroundColor: AppColors.errorColor,
+      backgroundColor: type == DialogType.error
+          ? AppColors.redColor
+          : AppColors.primaryColor,
       content: Text(errorMsg),
     ),
   );

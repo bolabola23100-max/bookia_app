@@ -1,22 +1,22 @@
 import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
-import 'package:bookia/core/utils/navigations.dart';
-import 'package:bookia/core/widgets/inputs/main_button.dart';
 import 'package:bookia/features/home/data/models/best_sellers_response/product.dart';
+import 'package:bookia/features/wishlist/presentation/cubit/wishlist_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
-class BookCart extends StatelessWidget {
-  const BookCart({super.key, required this.product});
+class WishlistCard extends StatelessWidget {
+  const WishlistCard({super.key, required this.product});
 
   final Product product;
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        pushTo(context, Routes.details, extra: product);
+        context.push(Routes.details, extra: product);
       },
       child: Container(
         padding: const EdgeInsets.all(8),
@@ -47,25 +47,26 @@ class BookCart extends StatelessWidget {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
-
             const Gap(5),
             Row(
               children: [
                 Expanded(
                   child: Text(
-                    "\$${product.price ?? ""}",
+                    "\$${product.price}",
                     style: TextStyles.fs14.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                MainButton(
-                  buttonColor: AppColors.dark,
-                  onPressed: () {},
-                  text: "Buy",
-                  borderRadius: 4,
-                  w: 62,
-                  h: 28,
+                IconButton(
+                  onPressed: () {
+                    if (product.id != null) {
+                      context.read<WishlistCubit>().removeFromWishlist(
+                        product.id!,
+                      );
+                    }
+                  },
+                  icon: Icon(Icons.delete_forever, color: AppColors.redColor),
                 ),
               ],
             ),

@@ -1,7 +1,8 @@
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/widgets/shimmer/best_seller_shimmer.dart';
+import 'package:bookia/core/widgets/shimmer/shimmer_container.dart';
 import 'package:bookia/features/home/presentation/cubit/home_cubit.dart';
-import 'package:bookia/features/home/presentation/widgets/best_seller/book_cart.dart';
+import 'package:bookia/features/home/presentation/widgets/best_seller/book_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -39,7 +40,7 @@ class BestSeller extends StatelessWidget {
                 ),
                 itemCount: products.length,
                 itemBuilder: (context, index) {
-                  return BookCart(product: products[index]);
+                  return BookCard(product: products[index]);
                 },
               ),
             ],
@@ -47,7 +48,9 @@ class BestSeller extends StatelessWidget {
         } else if (state is HomeErrorState) {
           return const Text("error");
         } else {
-          return const BestSellerShimmer();
+          return BestSellerShimmer(
+            sh: ShimmerContainer(width: 100, height: 30),
+          );
         }
       },
     );

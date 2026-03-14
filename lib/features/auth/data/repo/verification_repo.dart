@@ -12,7 +12,7 @@ class VerificationRepo {
         endpoint: Apis.forgetPassword,
         data: params.toJson(),
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
         var data = AuthResponse.fromJson(response.data);
         return data;
       } else {
@@ -30,7 +30,7 @@ class VerificationRepo {
         endpoint: Apis.verifyCode,
         data: params.toJson(),
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
         var data = AuthResponse.fromJson(response.data);
         return data;
       } else {
@@ -50,7 +50,7 @@ class VerificationRepo {
         endpoint: Apis.resetPassword,
         data: params.toJson(),
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
         var data = AuthResponse.fromJson(response.data);
         return data;
       } else {

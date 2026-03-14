@@ -48,7 +48,7 @@ class LoginScreen extends StatelessWidget {
           context.go(Routes.mainAppScreen);
           log("success");
         } else if (state is AuthErrorState) {
-          showErrorDialog(context, state.message);
+          showAppSnackBar(context, state.message);
         } else if (state is AuthLoadingState) {
           showLoading(context);
         }

@@ -14,7 +14,7 @@ class BookCartShimmer extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         color: AppColors.accentColor,
       ),
-      child:  Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(

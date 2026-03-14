@@ -1,4 +1,4 @@
- class RegisterParams {
+class RegisterParams {
   String? name;
   String? email;
   String? password;

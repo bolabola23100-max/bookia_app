@@ -5,8 +5,8 @@ import 'package:bookia/core/widgets/inputs/main_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-ShowBottomSheet(BuildContext context) {
-  return showBottomSheet(
+void showCustomBottomSheet(BuildContext context) {
+  showBottomSheet(
     context: context,
     backgroundColor: AppColors.bgColor,
     shape: RoundedRectangleBorder(
