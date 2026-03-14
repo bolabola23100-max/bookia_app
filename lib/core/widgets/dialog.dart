@@ -12,6 +12,7 @@ void showAppSnackBar(
 }) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
+      duration: Duration(milliseconds: 500),
       margin: EdgeInsets.all(10),
       behavior: SnackBarBehavior.floating,
       shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(5)),

@@ -23,11 +23,7 @@ class DetailsScreen extends StatelessWidget {
       listener: (context, state) {
         if (state is DetailsSuccessState) {
           pop(context);
-          showAppSnackBar(
-            context,
-            "Added to wishlist",
-            type: DialogType.success,
-          );
+          showAppSnackBar(context, state.message, type: DialogType.success);
         } else if (state is DetailsErrorState) {
           pop(context);
           showAppSnackBar(
@@ -58,73 +54,101 @@ class DetailsScreen extends StatelessWidget {
         ),
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Align(
-            alignment: Alignment.centerLeft,
-            child: CustomBackButton(),
-          ),
-          actions: [
-            IconButton(
-              onPressed: () {
-                context.read<DetailsCubit>().addToWishlist(product.id ?? 0);
-              },
-              icon: SvgPicture.asset(AppIcons.bookmark),
-            ),
-          ],
+          leading: const CustomBackButton(),
+          actions: [WishlistIcon(id: product.id ?? 0)],
         ),
 
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const Gap(30),
-              Center(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Hero(
-                    tag: "image${product.id}",
-                    child: Image.network(
-                      product.image ?? "",
-                      width: 183,
-                      height: 271,
-                      fit: BoxFit.cover,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const Gap(30),
+                Center(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Hero(
+                      tag: "image${product.id}",
+                      child: Image.network(
+                        product.image ?? "",
+                        width: 183,
+                        height: 271,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const Gap(11),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  product.name ?? "",
-                  style: TextStyles.fs30,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              const Gap(16),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  product.category ?? "",
-                  style: TextStyles.fs14.copyWith(
-                    color: AppColors.primaryColor,
+                const Gap(11),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    product.name ?? "",
+                    style: TextStyles.fs30,
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 ),
-              ),
-              const Gap(16),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  (product.description ?? "").replaceAll(
-                    RegExp(r'<[^>]*>'),
-                    '',
+                const Gap(16),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    product.category ?? "",
+                    style: TextStyles.fs14.copyWith(
+                      color: AppColors.primaryColor,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  style: TextStyles.fs14,
                 ),
-              ),
-            ],
+                const Gap(16),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    (product.description ?? "").replaceAll(
+                      RegExp(r'<[^>]*>'),
+                      '',
+                    ),
+                    style: TextStyles.fs14,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class WishlistIcon extends StatelessWidget {
+  const WishlistIcon({super.key, required this.id});
+
+  final int id;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<DetailsCubit, DetailsState>(
+      builder: (context, state) {
+        var cubit = context.read<DetailsCubit>();
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: IconButton(
+            onPressed: () {
+              if (cubit.isProductInWishlist(id)) {
+                cubit.removeFromWishlist(id);
+              } else {
+                cubit.addToWishlist(id);
+              }
+            },
+            icon: SvgPicture.asset(
+              AppIcons.bookmark,
+              colorFilter: ColorFilter.mode(
+                cubit.isProductInWishlist(id)
+                    ? AppColors.primaryColor
+                    : AppColors.dark,
+                BlendMode.srcIn,
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

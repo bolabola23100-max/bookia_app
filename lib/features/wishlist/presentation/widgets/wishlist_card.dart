@@ -1,22 +1,25 @@
 import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
+import 'package:bookia/core/utils/navigations.dart';
 import 'package:bookia/features/home/data/models/best_sellers_response/product.dart';
 import 'package:bookia/features/wishlist/presentation/cubit/wishlist_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 
 class WishlistCard extends StatelessWidget {
-  const WishlistCard({super.key, required this.product});
+  const WishlistCard({super.key, required this.product, this.onRefresh});
 
   final Product product;
+  final Function()? onRefresh;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.push(Routes.details, extra: product);
+        pushTo(context, Routes.details, extra: product).then((value) {
+          onRefresh?.call();
+        });
       },
       child: Container(
         padding: const EdgeInsets.all(8),
