@@ -7,7 +7,7 @@ abstract class SharedPref {
   static late SharedPreferences pref;
   static const String tokenKey = "token";
   static const String userKey = "user";
-  static init() async {
+  static Future<void> init() async {
     pref = await SharedPreferences.getInstance();
   }
 

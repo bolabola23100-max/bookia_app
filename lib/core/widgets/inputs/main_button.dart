@@ -7,7 +7,7 @@ class MainButton extends StatelessWidget {
   const MainButton({
     super.key,
     required this.onPressed,
-    required this.text,
+    this.text,
     this.w = 319,
     this.h = 58,
     this.borderRadius = 8,
@@ -17,7 +17,7 @@ class MainButton extends StatelessWidget {
     this.icon,
   });
   final Function() onPressed;
-  final String text;
+  final String? text;
   final double w;
   final double h;
   final double borderRadius;
@@ -48,7 +48,7 @@ class MainButton extends StatelessWidget {
             SvgPicture.asset(icon!),
             const SizedBox(width: 15),
           ],
-          Text(text, style: TextStyles.fs14.copyWith(color: textColor)),
+          Text(text ?? "", style: TextStyles.fs14.copyWith(color: textColor)),
         ],
       ),
     );

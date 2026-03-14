@@ -9,7 +9,7 @@ class HomeRepo {
   static Future<SliderResponse?> getSlider() async {
     try {
       var response = await DioProvider.get(endpoint: Apis.sliders);
-      if (response.statusCode == 200) {
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return SliderResponse.fromJson(response.data);
       } else {
         return null;
@@ -23,7 +23,7 @@ class HomeRepo {
   static Future<BestSellersResponse?> getBestSellers() async {
     try {
       var response = await DioProvider.get(endpoint: Apis.productsBestseller);
-      if (response.statusCode == 200) {
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return BestSellersResponse.fromJson(response.data);
       } else {
         return null;

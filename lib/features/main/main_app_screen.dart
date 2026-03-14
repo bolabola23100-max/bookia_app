@@ -1,7 +1,10 @@
 import 'package:bookia/core/constants/app_icons.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/widgets/custom__svg__picture.dart';
+import 'package:bookia/features/category/presentation/screens/category_screen.dart';
 import 'package:bookia/features/home/presentation/screens/home_screen.dart';
+import 'package:bookia/features/profile/presentation/screens/profile_screen.dart';
+import 'package:bookia/features/wishlist/presentation/screens/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 
 class MainAppScreen extends StatefulWidget {
@@ -13,7 +16,12 @@ class MainAppScreen extends StatefulWidget {
 
 class _MainAppScreenState extends State<MainAppScreen> {
   int currentIndex = 0;
-  List<Widget> screens = [HomeScreen(), Text("dd"), Text("dd"), Text("dd")];
+  List<Widget> screens = [
+    HomeScreen(),
+    WishlistScreen(),
+    CategoryScreen(),
+    ProfileScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {

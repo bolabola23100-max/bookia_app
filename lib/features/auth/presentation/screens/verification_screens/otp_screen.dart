@@ -83,7 +83,7 @@ class _OtpScreenState extends State<OtpScreen> {
         } else if (state is AuthErrorState) {
           pop(context);
 
-          showErrorDialog(context, state.message);
+          showAppSnackBar(context, state.message);
         } else if (state is AuthLoadingState) {
           showLoading(context);
         }
@@ -150,10 +150,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       textStyle: TextStyle(fontSize: 20),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: AppColors.errorColor,
-                          width: 2,
-                        ),
+                        border: Border.all(color: AppColors.redColor, width: 2),
                       ),
                     ),
                   ),

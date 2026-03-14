@@ -47,7 +47,7 @@ class RegisterScreen extends StatelessWidget {
         } else if (state is AuthErrorState) {
           pop(context);
 
-          showErrorDialog(context, state.message);
+          showAppSnackBar(context, state.message);
         } else if (state is AuthLoadingState) {
           showLoading(context);
         }

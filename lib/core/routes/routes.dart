@@ -4,12 +4,14 @@ import 'package:bookia/features/auth/presentation/screens/verification_screens/c
 import 'package:bookia/features/auth/presentation/screens/verification_screens/forgot_password_screen.dart';
 import 'package:bookia/features/auth/presentation/screens/verification_screens/otp_screen.dart';
 import 'package:bookia/features/auth/presentation/screens/verification_screens/password_changed.dart';
+import 'package:bookia/features/details/presentation/cubit/details_cubit.dart';
 import 'package:bookia/features/home/data/models/best_sellers_response/product.dart';
-import 'package:bookia/features/home/presentation/screens/book_details/details_screen.dart';
+import 'package:bookia/features/details/presentation/screens/details_screen.dart';
 import 'package:bookia/features/main/main_app_screen.dart';
 import 'package:bookia/features/home/presentation/screens/home_screen.dart';
 import 'package:bookia/features/on_boarding_screens/screens/splash_screen.dart';
 import 'package:bookia/features/on_boarding_screens/screens/welcome_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class Routes {
@@ -58,8 +60,10 @@ GoRouter router = GoRouter(
     GoRoute(path: Routes.home, builder: (context, state) => HomeScreen()),
     GoRoute(
       path: Routes.details,
-      builder: (context, state) =>
-          DetailsScreen(product: state.extra as Product),
+      builder: (context, state) => BlocProvider(
+        create: (context) => DetailsCubit(),
+        child: DetailsScreen(product: state.extra as Product),
+      ),
     ),
   ],
 );

@@ -20,6 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     String? token = SharedPref.getToken();
     super.initState();
     Future.delayed(Duration(seconds: 3), () {
+      if (!mounted) return;
       if (token != null && token.isNotEmpty) {
         context.go(Routes.mainAppScreen);
       } else {

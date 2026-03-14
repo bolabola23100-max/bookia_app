@@ -1,15 +1,15 @@
 import 'data.dart';
 
-class BestSellersResponse {
+class WishlistResponse {
   Data? data;
   String? message;
   List<dynamic>? error;
   int? status;
 
-  BestSellersResponse({this.data, this.message, this.error, this.status});
+  WishlistResponse({this.data, this.message, this.error, this.status});
 
-  factory BestSellersResponse.fromJson(Map<String, dynamic> json) {
-    return BestSellersResponse(
+  factory WishlistResponse.fromJson(Map<String, dynamic> json) {
+    return WishlistResponse(
       data: json['data'] == null
           ? null
           : Data.fromJson(json['data'] as Map<String, dynamic>),

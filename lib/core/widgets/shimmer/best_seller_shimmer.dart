@@ -1,19 +1,16 @@
 import 'package:bookia/core/widgets/shimmer/book_cart_shimmer.dart';
-import 'package:bookia/core/widgets/shimmer/shimmer_container.dart';
 import 'package:flutter/material.dart';
 
 class BestSellerShimmer extends StatelessWidget {
-  const BestSellerShimmer({super.key});
+  const BestSellerShimmer({super.key, this.sh});
 
+  final Widget? sh;
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: ShimmerContainer(width: 100, height: 30),
-        ),
+        Padding(padding: const EdgeInsets.symmetric(horizontal: 24), child: sh),
         GridView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
