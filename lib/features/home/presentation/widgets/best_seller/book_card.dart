@@ -53,7 +53,9 @@ class BookCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    "\$${product.price ?? ""}",
+                    product.discount != null
+                        ? "\$${product.priceAfterDiscount}"
+                        : "\$${product.price}",
                     style: TextStyles.fs14.copyWith(
                       fontWeight: FontWeight.bold,
                     ),

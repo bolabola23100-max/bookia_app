@@ -1,28 +1,17 @@
 import 'package:bookia/core/constants/app_icons.dart';
-import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
-import 'package:bookia/core/utils/navigations.dart';
-import 'package:bookia/features/home/data/models/best_sellers_response/product.dart';
-import 'package:bookia/features/wishlist/presentation/cubit/wishlist_cubit.dart';
+import 'package:bookia/core/widgets/inputs/main_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
-class WishlistCard extends StatelessWidget {
-  const WishlistCard({super.key, required this.product, this.onRefresh});
+class SearchCard extends StatelessWidget {
+  const SearchCard({super.key});
 
-  final Product product;
-  final Function()? onRefresh;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        pushTo(context, Routes.details, extra: product).then((value) {
-          onRefresh?.call();
-        });
-      },
+      onTap: () {},
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
@@ -36,9 +25,9 @@ class WishlistCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Hero(
-                  tag: "image${product.id}",
-                  child: Image.network(
-                    product.image ?? "",
+                  tag: "search",
+                  child: Image.asset(
+                    AppIcons.bgImage,
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
@@ -47,33 +36,30 @@ class WishlistCard extends StatelessWidget {
             ),
             const Gap(8),
             Text(
-              product.name ?? "",
+              "aaaaaaaaaaaaa",
               style: TextStyles.fs14,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
+
             const Gap(5),
             Row(
               children: [
                 Expanded(
                   child: Text(
-                    product.discount != null
-                        ? "\$${product.priceAfterDiscount}"
-                        : "\$${product.price}",
+                    "\$10",
                     style: TextStyles.fs14.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                IconButton(
-                  onPressed: () {
-                    if (product.id != null) {
-                      context.read<WishlistCubit>().removeFromWishlist(
-                        product.id!,
-                      );
-                    }
-                  },
-                  icon: SvgPicture.asset(AppIcons.close),
+                MainButton(
+                  buttonColor: AppColors.dark,
+                  onPressed: () {},
+                  text: "Buy",
+                  borderRadius: 4,
+                  w: 62,
+                  h: 28,
                 ),
               ],
             ),

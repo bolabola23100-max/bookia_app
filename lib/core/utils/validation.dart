@@ -19,3 +19,15 @@ bool isPassword(String password) {
 bool isConfirmPassword(String password, String confirmPassword) {
   return password == confirmPassword;
 }
+
+bool isPhone(String phone) {
+  return RegExp(r'^[0-9]+$').hasMatch(phone);
+}
+
+bool isAddress(String address) {
+  return RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$').hasMatch(address);
+}
+
+bool isGovernorate(String governorate) {
+  return RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$').hasMatch(governorate);
+}
