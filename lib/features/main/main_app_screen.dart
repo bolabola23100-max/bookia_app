@@ -1,7 +1,7 @@
 import 'package:bookia/core/constants/app_icons.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/widgets/custom__svg__picture.dart';
-import 'package:bookia/features/category/presentation/screens/category_screen.dart';
+import 'package:bookia/features/cart/presentation/screens/cart_screen.dart';
 import 'package:bookia/features/home/presentation/screens/home_screen.dart';
 import 'package:bookia/features/profile/presentation/screens/profile_screen.dart';
 import 'package:bookia/features/wishlist/presentation/screens/wishlist_screen.dart';
@@ -19,7 +19,7 @@ class _MainAppScreenState extends State<MainAppScreen> {
   List<Widget> screens = [
     HomeScreen(),
     WishlistScreen(),
-    CategoryScreen(),
+    CartScreen(),
     ProfileScreen(),
   ];
 
@@ -33,7 +33,7 @@ class _MainAppScreenState extends State<MainAppScreen> {
 
   Container _navBar() {
     return Container(
-      padding: EdgeInsets.only(top: 10, bottom: 27),
+      padding: EdgeInsets.only(bottom: 10),
       child: BottomNavigationBar(
         currentIndex: currentIndex,
         onTap: (index) {

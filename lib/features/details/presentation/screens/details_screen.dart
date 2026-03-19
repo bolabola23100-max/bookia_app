@@ -1,15 +1,15 @@
-import 'package:bookia/core/constants/app_icons.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/utils/navigations.dart';
 import 'package:bookia/core/widgets/custom_back_button.dart';
 import 'package:bookia/core/widgets/dialog.dart';
-import 'package:bookia/core/widgets/inputs/main_button.dart';
-import 'package:bookia/features/details/presentation/cubit/details_cubit.dart';
+import 'package:bookia/features/details/presentation/widgets/cart_action/cart_action.dart';
+import 'package:bookia/features/details/presentation/widgets/cart_action/cubit/cart_action_cubit.dart';
+import 'package:bookia/features/details/presentation/widgets/wishlist_action/cubit/wishlist_action_cubit.dart';
+import 'package:bookia/features/details/presentation/widgets/wishlist_action/wishlist_action.dart';
 import 'package:bookia/features/home/data/models/best_sellers_response/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
 class DetailsScreen extends StatelessWidget {
@@ -19,43 +19,63 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<DetailsCubit, DetailsState>(
-      listener: (context, state) {
-        if (state is DetailsSuccessState) {
-          pop(context);
-          showAppSnackBar(context, state.message, type: DialogType.success);
-        } else if (state is DetailsErrorState) {
-          pop(context);
-          showAppSnackBar(
-            context,
-            "Failed to add to wishlist",
-            type: DialogType.error,
-          );
-        } else if (state is DetailsLoadingState) {
-          showLoading(context);
-        }
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<WishlistActionCubit, WishlistActionState>(
+          listener: (context, state) {
+            if (state is WishlistActionSuccessState) {
+              pop(context);
+              showAppSnackBar(context, state.message, type: DialogType.success);
+            } else if (state is WishlistActionErrorState) {
+              pop(context);
+              showAppSnackBar(
+                context,
+                "Failed to add to wishlist",
+                type: DialogType.error,
+              );
+            } else if (state is WishlistActionLoadingState) {
+              showLoading(context);
+            }
+          },
+        ),
+        BlocListener<CartActionCubit, CartActionState>(
+          listener: (context, state) {
+            if (state is CartActionSuccessState) {
+              pop(context);
+              showAppSnackBar(context, state.message, type: DialogType.success);
+            } else if (state is CartActionErrorState) {
+              pop(context);
+              showAppSnackBar(
+                context,
+                "Failed to add to cart",
+                type: DialogType.error,
+              );
+            } else if (state is CartActionLoadingState) {
+              showLoading(context);
+            }
+          },
+        ),
+      ],
       child: Scaffold(
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 19),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("\$${product.price}", style: TextStyles.fs30),
-              MainButton(
-                onPressed: () {},
-                text: "Add To Cart",
-                w: 180,
-                h: 56,
-                buttonColor: AppColors.dark,
+              Text(
+                product.discount != null
+                    ? "\$${product.priceAfterDiscount}"
+                    : "\$${product.price}",
+                style: TextStyles.fs30,
               ),
+              CartAction(id: product.id ?? 0),
             ],
           ),
         ),
         appBar: AppBar(
           automaticallyImplyLeading: false,
           leading: const CustomBackButton(),
-          actions: [WishlistIcon(id: product.id ?? 0)],
+          actions: [WishlistAction(id: product.id ?? 0)],
         ),
 
         body: SafeArea(
@@ -113,42 +133,6 @@ class DetailsScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class WishlistIcon extends StatelessWidget {
-  const WishlistIcon({super.key, required this.id});
-
-  final int id;
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<DetailsCubit, DetailsState>(
-      builder: (context, state) {
-        var cubit = context.read<DetailsCubit>();
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: IconButton(
-            onPressed: () {
-              if (cubit.isProductInWishlist(id)) {
-                cubit.removeFromWishlist(id);
-              } else {
-                cubit.addToWishlist(id);
-              }
-            },
-            icon: SvgPicture.asset(
-              AppIcons.bookmark,
-              colorFilter: ColorFilter.mode(
-                cubit.isProductInWishlist(id)
-                    ? AppColors.primaryColor
-                    : AppColors.dark,
-                BlendMode.srcIn,
-              ),
-            ),
-          ),
-        );
-      },
     );
   }
 }

@@ -45,4 +45,31 @@ class Validators {
     }
     return null;
   }
+
+  String? validatorPhone(String? value) {
+    if (value!.isEmpty) {
+      return "Please enter your phone number";
+    } else if (!isPhone(value)) {
+      return "Enter a valid phone number";
+    }
+    return null;
+  }
+
+  String? validatorAddress(String? value) {
+    if (value!.isEmpty) {
+      return "Please enter your address";
+    } else if (!isAddress(value)) {
+      return "Enter a valid address";
+    }
+    return null;
+  }
+
+  String? validatorGovernorate(String? value) {
+    if (value!.isEmpty) {
+      return "Please select your governorate";
+    } else if (!isGovernorate(value)) {
+      return "Enter a valid governorate";
+    }
+    return null;
+  }
 }

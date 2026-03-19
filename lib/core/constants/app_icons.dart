@@ -11,4 +11,8 @@ class AppIcons {
   static const String category = "assets/svg/Category.svg";
   static const String home = "assets/svg/home.svg";
   static const String search = "assets/svg/search-normal.svg";
+  static const String close = "assets/svg/closeIcon.svg";
+  static const String remove = "assets/svg/remove.svg";
+  static const String add = "assets/svg/add.svg";
+  static const String camera = "assets/svg/camera.svg";
 }

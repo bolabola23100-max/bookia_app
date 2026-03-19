@@ -10,6 +10,7 @@ class CustomTextFormField extends StatelessWidget {
     this.keyboardType,
     this.controller,
     this.prefixIcon,
+    this.suffixIcon,
     this.onTap,
     this.readOnly = false,
     this.onChanged,
@@ -20,6 +21,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputType? keyboardType;
   final TextEditingController? controller;
   final Widget? prefixIcon;
+  final Widget? suffixIcon;
   final Function()? onTap;
   final Function(String)? onChanged;
   final bool readOnly;
@@ -37,6 +39,7 @@ class CustomTextFormField extends StatelessWidget {
         },
         decoration: InputDecoration(
           prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
           hintText: hintText,
           hintStyle: TextStyles.fs14.copyWith(color: AppColors.darkGray),
         ),

@@ -14,7 +14,7 @@ class WishlistCubit extends Cubit<WishlistState> {
     if (data != null) {
       products = data.data!.data ?? [];
 
-    SharedPref.cacheWishListIds(products);
+      SharedPref.cacheWishListIds(products);
 
       emit(WishlistSuccessState());
     } else {
@@ -31,9 +31,7 @@ class WishlistCubit extends Cubit<WishlistState> {
 
       emit(WishlistSuccessState());
     } else {
-      emit(WishlistErrorState());     
+      emit(WishlistErrorState());
     }
   }
-
-  
 }
