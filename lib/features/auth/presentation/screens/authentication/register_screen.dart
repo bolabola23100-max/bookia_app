@@ -42,6 +42,7 @@ class RegisterScreen extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthSuccessState) {
+          pop(context);
           context.go(Routes.mainAppScreen);
           log("success");
         } else if (state is AuthErrorState) {

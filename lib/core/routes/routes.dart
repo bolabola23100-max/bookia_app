@@ -4,8 +4,6 @@ import 'package:bookia/features/auth/presentation/screens/verification_screens/c
 import 'package:bookia/features/auth/presentation/screens/verification_screens/forgot_password_screen.dart';
 import 'package:bookia/features/auth/presentation/screens/verification_screens/otp_screen.dart';
 import 'package:bookia/features/auth/presentation/screens/verification_screens/password_changed.dart';
-import 'package:bookia/features/details/presentation/widgets/cart_action/cubit/cart_action_cubit.dart';
-import 'package:bookia/features/details/presentation/widgets/wishlist_action/cubit/wishlist_action_cubit.dart';
 import 'package:bookia/features/home/data/models/best_sellers_response/product.dart';
 import 'package:bookia/features/details/presentation/screens/details_screen.dart';
 import 'package:bookia/features/main/main_app_screen.dart';
@@ -15,12 +13,9 @@ import 'package:bookia/features/on_boarding_screens/screens/welcome_screen.dart'
 import 'package:bookia/features/profile/presentation/screens/edit_profile_screen.dart';
 import 'package:bookia/features/profile/presentation/screens/my_orders_screen.dart';
 import 'package:bookia/features/profile/presentation/screens/new_password_screen.dart';
-import 'package:bookia/features/cart/presentation/cubit/cart_cubit.dart';
-import 'package:bookia/features/place_order/presentation/cubit/place_order_cubit.dart';
 import 'package:bookia/features/place_order/presentation/screens/place_order_screen.dart';
 import 'package:bookia/features/cart/presentation/screens/success_screen.dart';
 import 'package:bookia/features/search/presentation/screens/search_screen.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class Routes {
@@ -75,13 +70,7 @@ GoRouter router = GoRouter(
     GoRoute(path: Routes.home, builder: (context, state) => HomeScreen()),
     GoRoute(
       path: Routes.details,
-      builder: (context, state) => MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (context) => WishlistActionCubit()),
-          BlocProvider(create: (context) => CartActionCubit()),
-        ],
-        child: DetailsScreen(product: state.extra as Product),
-      ),
+      builder: (context, state) => DetailsScreen(product: state.extra as Product),
     ),
     GoRoute(
       path: Routes.editProfile,
@@ -93,17 +82,11 @@ GoRouter router = GoRouter(
     ),
     GoRoute(
       path: Routes.myOrders,
-      builder: (context, state) => MyOrdersScreen(),
+      builder: (context, state) => const MyOrdersScreen(),
     ),
     GoRoute(
       path: Routes.checkout,
-      builder: (context, state) => MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (context) => CartCubit()..getCart()),
-          BlocProvider(create: (context) => PlaceOrderCubit()),
-        ],
-        child: const PlaceOrderScreen(),
-      ),
+      builder: (context, state) => const PlaceOrderScreen(),
     ),
     GoRoute(path: Routes.success, builder: (context, state) => SuccessScreen()),
     GoRoute(

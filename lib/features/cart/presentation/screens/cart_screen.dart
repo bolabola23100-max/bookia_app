@@ -13,10 +13,8 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CartCubit()..getCart(),
-      child: Scaffold(
-        bottomNavigationBar: BlocBuilder<CartCubit, CartState>(
+    return Scaffold(
+      bottomNavigationBar: BlocBuilder<CartCubit, CartState>(
           builder: (context, state) {
             var cubit = context.read<CartCubit>();
             return Column(
@@ -53,7 +51,6 @@ class CartScreen extends StatelessWidget {
         ),
         appBar: AppBar(title: const Center(child: Text('My Cart'))),
         body: CartItemWidget(),
-      ),
     );
   }
 }

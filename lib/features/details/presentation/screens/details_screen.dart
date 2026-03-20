@@ -7,6 +7,8 @@ import 'package:bookia/features/details/presentation/widgets/cart_action/cart_ac
 import 'package:bookia/features/details/presentation/widgets/cart_action/cubit/cart_action_cubit.dart';
 import 'package:bookia/features/details/presentation/widgets/wishlist_action/cubit/wishlist_action_cubit.dart';
 import 'package:bookia/features/details/presentation/widgets/wishlist_action/wishlist_action.dart';
+import 'package:bookia/features/cart/presentation/cubit/cart_cubit.dart';
+import 'package:bookia/features/wishlist/presentation/cubit/wishlist_cubit.dart';
 import 'package:bookia/features/home/data/models/best_sellers_response/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,6 +26,7 @@ class DetailsScreen extends StatelessWidget {
         BlocListener<WishlistActionCubit, WishlistActionState>(
           listener: (context, state) {
             if (state is WishlistActionSuccessState) {
+              context.read<WishlistCubit>().getWishlist();
               pop(context);
               showAppSnackBar(context, state.message, type: DialogType.success);
             } else if (state is WishlistActionErrorState) {
@@ -41,6 +44,7 @@ class DetailsScreen extends StatelessWidget {
         BlocListener<CartActionCubit, CartActionState>(
           listener: (context, state) {
             if (state is CartActionSuccessState) {
+              context.read<CartCubit>().getCart();
               pop(context);
               showAppSnackBar(context, state.message, type: DialogType.success);
             } else if (state is CartActionErrorState) {
@@ -63,7 +67,7 @@ class DetailsScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                product.discount != null
+                product.priceAfterDiscount != null
                     ? "\$${product.priceAfterDiscount}"
                     : "\$${product.price}",
                 style: TextStyles.fs30,

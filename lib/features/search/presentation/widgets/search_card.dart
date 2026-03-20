@@ -1,17 +1,21 @@
-import 'package:bookia/core/constants/app_icons.dart';
+import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
+import 'package:bookia/core/utils/navigations.dart';
 import 'package:bookia/core/widgets/inputs/main_button.dart';
+import 'package:bookia/features/home/data/models/best_sellers_response/product.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class SearchCard extends StatelessWidget {
-  const SearchCard({super.key});
-
+  const SearchCard({super.key, required this.product});
+  final Product product;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        pushTo(context, Routes.details, extra: product);
+      },
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
@@ -25,9 +29,9 @@ class SearchCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Hero(
-                  tag: "search",
-                  child: Image.asset(
-                    AppIcons.bgImage,
+                  tag: product.id!,
+                  child: Image.network(
+                    product.image ?? "",
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
@@ -36,9 +40,9 @@ class SearchCard extends StatelessWidget {
             ),
             const Gap(8),
             Text(
-              "aaaaaaaaaaaaa",
+              product.name ?? "",
               style: TextStyles.fs14,
-              maxLines: 2,
+              maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
 
@@ -47,7 +51,9 @@ class SearchCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    "\$10",
+                    product.priceAfterDiscount != null
+                        ? "\$${product.priceAfterDiscount}"
+                        : "\$${product.price}",
                     style: TextStyles.fs14.copyWith(
                       fontWeight: FontWeight.bold,
                     ),

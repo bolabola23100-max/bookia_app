@@ -19,8 +19,16 @@ class Apis {
   static const String addToCart = "/add-to-cart";
   static const String removeFromCart = "/remove-from-cart";
   static const String updateCart = "/update-cart";
-  //checkout
-  static const String checkout = "/checkout";
+  //place order
   static const String placeOrder = "/place-order";
   static const String governorates = "/governorates";
+  //search
+  static const String search = "/products-search";
+  //profile
+  static const String profile = "/profile";
+  static const String updateProfile = "/update-profile";
+  static const String updatePassword = "/update-password";
+  static const String deleteProfile = "/delete-profile";
+  //order history
+  static const String orderHistory = "/order-history";
 }

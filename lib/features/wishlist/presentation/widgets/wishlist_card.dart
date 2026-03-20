@@ -57,7 +57,7 @@ class WishlistCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    product.discount != null
+                    product.priceAfterDiscount != null
                         ? "\$${product.priceAfterDiscount}"
                         : "\$${product.price}",
                     style: TextStyles.fs14.copyWith(

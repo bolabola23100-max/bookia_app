@@ -1,7 +1,9 @@
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/widgets/custom_back_button.dart';
+import 'package:bookia/features/profile/presentation/cubit/history/history_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MyOrdersScreen extends StatelessWidget {
   const MyOrdersScreen({super.key});
@@ -16,61 +18,70 @@ class MyOrdersScreen extends StatelessWidget {
         scrolledUnderElevation: 0,
         leading: const CustomBackButton(),
         title: const Text('My Orders', style: TextStyles.fs20),
-        centerTitle:
-            false, // In the image, 'My Orders' title looks left-aligned next to the back button
+        centerTitle: false,
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(22.0),
-        itemCount: 3, // Dummy count
-        itemBuilder: (context, index) {
-          return Container(
-            margin: const EdgeInsets.only(bottom: 16),
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: AppColors.bgColor,
-              borderRadius: BorderRadius.circular(8),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.05),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Order No238562312', style: TextStyles.fs16),
-                    Text(
-                      '20/03/2020',
-                      style: TextStyles.fs14.copyWith(
-                        color: AppColors.darkGray,
-                      ),
+      body: BlocBuilder<HistoryCubit, HistoryState>(
+        builder: (context, state) {
+          if (state is GetOrderHistoryLoadingState) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          var cubit = context.read<HistoryCubit>();
+          return ListView.builder(
+            padding: const EdgeInsets.all(22.0),
+            itemCount: cubit.orders.length,
+            itemBuilder: (context, index) {
+              var order = cubit.orders[index];
+              return Container(
+                margin: const EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: AppColors.bgColor,
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.05),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                child: Column(
                   children: [
-                    Text(
-                      'Total Amount: ',
-                      style: TextStyles.fs16.copyWith(
-                        color: AppColors.darkGray,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Order No${order.orderCode}',
+                            style: TextStyles.fs16),
+                        Text(
+                          order.orderDate ?? '',
+                          style: TextStyles.fs14.copyWith(
+                            color: AppColors.darkGray,
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      '\$150',
-                      style: TextStyles.fs16.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Total Amount: ',
+                          style: TextStyles.fs16.copyWith(
+                            color: AppColors.darkGray,
+                          ),
+                        ),
+                        Text(
+                          '\$${order.total}',
+                          style: TextStyles.fs16.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
+              );
+            },
           );
         },
       ),

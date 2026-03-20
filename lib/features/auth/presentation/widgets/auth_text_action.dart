@@ -1,5 +1,4 @@
 import 'package:bookia/core/styles/colors.dart';
-import 'package:bookia/core/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class AuthTextAction extends StatelessWidget {
@@ -19,7 +18,7 @@ class AuthTextAction extends StatelessWidget {
       child: Text.rich(
         TextSpan(
           children: [
-            TextSpan(text: text1, style: TextStyles.fs14),
+            TextSpan(text: text1, style: TextStyle(fontSize: 12)),
             WidgetSpan(
               alignment: PlaceholderAlignment.middle,
               child: TextButton(
@@ -30,9 +29,7 @@ class AuthTextAction extends StatelessWidget {
                 onPressed: onPressed,
                 child: Text(
                   text2,
-                  style: TextStyles.fs14.copyWith(
-                    color: AppColors.primaryColor,
-                  ),
+                  style: TextStyle(fontSize: 12, color: AppColors.primaryColor),
                 ),
               ),
             ),

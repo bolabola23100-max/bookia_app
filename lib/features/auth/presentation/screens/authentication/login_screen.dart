@@ -45,9 +45,11 @@ class LoginScreen extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthSuccessState) {
+          pop(context);
           context.go(Routes.mainAppScreen);
           log("success");
         } else if (state is AuthErrorState) {
+          pop(context);
           showAppSnackBar(context, state.message);
         } else if (state is AuthLoadingState) {
           showLoading(context);

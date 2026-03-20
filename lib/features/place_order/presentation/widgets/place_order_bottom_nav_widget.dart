@@ -20,20 +20,27 @@ class PlaceOrderBottomNavWidget extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 22),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Total:',
-                    style: TextStyles.fs20.copyWith(
-                      color: AppColors.darkGray,
-                    ),
+            BlocBuilder<CartCubit, CartState>(
+              builder: (context, state) {
+                if (state is CartLoadingState) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 22),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Total:',
+                        style: TextStyles.fs20.copyWith(
+                          color: AppColors.darkGray,
+                        ),
+                      ),
+                      Text('\$${cartCubit.total}', style: TextStyles.fs20),
+                    ],
                   ),
-                  Text('\$${cartCubit.total}', style: TextStyles.fs20),
-                ],
-              ),
+                );
+              },
             ),
             const Gap(15),
             Padding(

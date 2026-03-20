@@ -58,6 +58,7 @@ abstract class SharedPref {
       return [];
     }
   }
+
   //cart
   static void cacheCartItems(List<CartItem> items) {
     var ids = items.map((item) => item.itemProductId.toString()).toList();
@@ -72,8 +73,6 @@ abstract class SharedPref {
       return [];
     }
   }
-
-
 
   static Future<void> cacheData(String key, dynamic value) async {
     if (value is String) {

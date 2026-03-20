@@ -1,11 +1,9 @@
 import 'package:bookia/core/constants/app_icons.dart';
-import 'package:bookia/features/home/presentation/cubit/home_cubit.dart';
 import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/utils/navigations.dart';
 import 'package:bookia/features/home/presentation/widgets/best_seller/best_seller.dart';
 import 'package:bookia/features/home/presentation/widgets/slider/home_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
@@ -14,9 +12,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomeCubit()..inetLoadData(),
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Align(
             alignment: Alignment.centerLeft,
@@ -41,7 +37,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ),
-      ),
     );
   }
 }
