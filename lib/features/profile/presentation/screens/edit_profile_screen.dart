@@ -8,6 +8,7 @@ import 'package:bookia/core/widgets/inputs/custom_text_form_field.dart';
 import 'package:bookia/core/widgets/inputs/main_button.dart';
 import 'package:bookia/core/widgets/dialog.dart';
 import 'package:bookia/features/profile/presentation/cubit/profile/profile_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -23,19 +24,22 @@ class EditProfileScreen extends StatelessWidget {
         elevation: 0,
         scrolledUnderElevation: 0,
         leading: const CustomBackButton(),
-        title: const Text('Edit Profile', style: TextStyles.fs20),
+        title: Text('edit_profile'.tr(), style: TextStyles.fs20),
         centerTitle: true,
       ),
       body: BlocConsumer<ProfileCubit, ProfileState>(
         listener: (context, state) {
           if (state is UpdateProfileSuccessState) {
             Navigator.pop(context); // Pop loading dialog
-            showAppSnackBar(context, 'Profile Updated Successfully',
-                type: DialogType.success);
+            showAppSnackBar(
+              context,
+              'edit_profile_success'.tr(),
+              type: DialogType.success,
+            );
             Navigator.pop(context); // Pop current screen (EditProfileScreen)
           } else if (state is UpdateProfileErrorState) {
             Navigator.pop(context); // Pop loading dialog
-            showAppSnackBar(context, 'Failed to update profile');
+            showAppSnackBar(context, 'edit_profile_error'.tr());
           } else if (state is UpdateProfileLoadingState) {
             showLoading(context);
           }
@@ -83,18 +87,18 @@ class EditProfileScreen extends StatelessWidget {
                       const Gap(45),
                       CustomTextFormField(
                         controller: cubit.nameController,
-                        hintText: 'Full Name',
+                        hintText: 'full_name'.tr(),
                       ),
                       const Gap(16),
                       CustomTextFormField(
                         controller: cubit.phoneController,
-                        hintText: 'Phone',
+                        hintText: 'phone'.tr(),
                         keyboardType: TextInputType.phone,
                       ),
                       const Gap(16),
                       CustomTextFormField(
                         controller: cubit.addressController,
-                        hintText: 'Address',
+                        hintText: 'address'.tr(),
                       ),
                     ],
                   ),
@@ -103,7 +107,7 @@ class EditProfileScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(22.0),
                 child: MainButton(
-                  text: 'Update Profile',
+                  text: 'update_profile'.tr(),
                   onPressed: () {
                     cubit.updateProfile();
                   },

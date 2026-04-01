@@ -3,6 +3,7 @@ import 'package:bookia/core/widgets/shimmer/best_seller_shimmer.dart';
 import 'package:bookia/core/widgets/shimmer/shimmer_container.dart';
 import 'package:bookia/features/home/presentation/cubit/home_cubit.dart';
 import 'package:bookia/features/home/presentation/widgets/best_seller/book_card.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,13 +17,11 @@ class BestSeller extends StatelessWidget {
         if (state is HomeSuccessState) {
           var products = context.read<HomeCubit>().products;
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text("Best Seller", style: TextStyles.fs20),
-                ),
+                child: Text("best_seller".tr(), style: TextStyles.fs20),
               ),
 
               GridView.builder(
@@ -46,7 +45,7 @@ class BestSeller extends StatelessWidget {
             ],
           );
         } else if (state is HomeErrorState) {
-          return const Text("error");
+          return Text("error".tr());
         } else {
           return BestSellerShimmer(
             sh: ShimmerContainer(width: 100, height: 30),

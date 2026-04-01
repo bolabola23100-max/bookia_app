@@ -14,6 +14,7 @@ import 'package:bookia/core/widgets/inputs/main_button.dart';
 import 'package:bookia/core/widgets/inputs/password_text_form_field.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bookia/features/auth/presentation/widgets/auth_text_action.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,8 +30,8 @@ class LoginScreen extends StatelessWidget {
       create: (context) => AuthCubit(),
       child: Scaffold(
         bottomNavigationBar: AuthTextAction(
-          text1: 'Don\'t have an account? ',
-          text2: 'Register Now',
+          text1: 'dont_have_an_account'.tr(),
+          text2: 'register_now'.tr(),
           onPressed: () {
             pushTo(context, Routes.register);
           },
@@ -64,11 +65,11 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 24, top: 15),
+                  padding: const EdgeInsetsDirectional.only(start: 24, top: 15),
                   child: Align(
-                    alignment: AlignmentGeometry.topLeft,
+                    alignment: AlignmentDirectional.topStart,
                     child: Text(
-                      "Welcome back! Glad!\n to see you, Again!",
+                      "welcome_back_glad_to_see_you_again".tr(),
                       style: TextStyles.fs20.copyWith(fontSize: 30),
                     ),
                   ),
@@ -76,24 +77,24 @@ class LoginScreen extends StatelessWidget {
                 Gap(32),
                 CustomTextFormField(
                   controller: cubit.emailController,
-                  hintText: "Enter your email",
+                  hintText: "email".tr(),
                   validator: Validators().validatorEmail,
                 ),
                 Gap(15),
                 PasswordTextFormField(
-                  text: 'Password',
+                  text: 'password'.tr(),
                   controller: cubit.passwordController,
                   validator: Validators().validatorPassword,
                 ),
                 Align(
-                  alignment: AlignmentGeometry.topRight,
+                  alignment: AlignmentDirectional.topEnd,
                   child: TextButton(
                     style: TextButton.styleFrom(minimumSize: Size.zero),
                     onPressed: () {
                       pushTo(context, Routes.forgotPassword);
                     },
                     child: Text(
-                      "Forgot Password?",
+                      "forgot_password".tr(),
                       style: TextStyles.fs14.copyWith(
                         color: AppColors.darkGray,
                       ),
@@ -109,7 +110,7 @@ class LoginScreen extends StatelessWidget {
                         cubit.login();
                       }
                     },
-                    text: "LogIn",
+                    text: "login".tr(),
                   ),
                 ),
                 Gap(20),
@@ -122,7 +123,7 @@ class LoginScreen extends StatelessWidget {
                     Expanded(child: Divider(color: AppColors.border)),
                     Gap(45),
                     Text(
-                      "Or",
+                      "or".tr(),
                       style: TextStyles.fs14.copyWith(
                         color: AppColors.darkGray,
                       ),
@@ -139,7 +140,7 @@ class LoginScreen extends StatelessWidget {
                     children: [
                       MainButton(
                         onPressed: () {},
-                        text: "Sign in with Google",
+                        text: "sign_in_with_google".tr(),
                         borderRadius: 10,
                         textColor: AppColors.darkGray,
                         buttonColor: AppColors.bgColor,
@@ -150,7 +151,7 @@ class LoginScreen extends StatelessWidget {
 
                       MainButton(
                         onPressed: () {},
-                        text: "Sign in with Apple",
+                        text: "sign_in_with_apple".tr(),
                         borderRadius: 10,
                         textColor: AppColors.darkGray,
                         buttonColor: AppColors.bgColor,

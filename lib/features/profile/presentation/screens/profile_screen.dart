@@ -6,10 +6,12 @@ import 'package:bookia/core/widgets/dialog.dart';
 import 'package:bookia/core/widgets/inputs/custom_text_form_field.dart';
 import 'package:bookia/features/profile/presentation/cubit/profile/profile_cubit.dart';
 import 'package:bookia/features/profile/presentation/widgets/build_menu_item.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -30,14 +32,14 @@ class ProfileScreen extends StatelessWidget {
           context.go(Routes.login);
         } else if (state is DeleteAccountErrorState) {
           Navigator.pop(context);
-          showAppSnackBar(context, 'Failed to delete account');
+          showAppSnackBar(context, 'delete_account_error'.tr());
         }
       },
       builder: (context, state) {
         if (state is ProfileLoadingState) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is ProfileErrorState) {
-          return const Center(child: Text('Error'));
+          return Center(child: Text('error'.tr()));
         } else if (state is ProfileSuccessState ||
             state is LogoutLoadingState ||
             state is LogoutSuccessState ||
@@ -55,7 +57,7 @@ class ProfileScreen extends StatelessWidget {
               : context.read<ProfileCubit>().getUserInfo();
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Profile', style: TextStyles.fs20),
+              title: Text('profile'.tr(), style: TextStyles.fs20),
               centerTitle: true,
               elevation: 0,
               scrolledUnderElevation: 0,
@@ -81,8 +83,8 @@ class ProfileScreen extends StatelessWidget {
                           child:
                               (user?.image != null && user!.image!.isNotEmpty)
                               ? ClipOval(
-                                  child: Image.network(
-                                    user.image!,
+                                  child: CachedNetworkImage(
+                                    imageUrl: user.image!,
                                     width: 70,
                                     height: 70,
                                     fit: BoxFit.cover,
@@ -114,22 +116,74 @@ class ProfileScreen extends StatelessWidget {
                     const Gap(32),
                     ...[
                       BuildMenuItem(
-                        title: 'My Orders',
+                        title: 'my_orders'.tr(),
                         onTap: () => pushTo(context, Routes.myOrders),
                       ),
                       BuildMenuItem(
-                        title: 'Edit Profile',
+                        title: 'edit_profile'.tr(),
                         onTap: () => pushTo(context, Routes.editProfile),
                       ),
                       BuildMenuItem(
-                        title: 'Reset Password',
+                        title: 'reset_password'.tr(),
                         onTap: () => pushTo(context, Routes.newPassword),
                       ),
-                      BuildMenuItem(title: 'FAQ', onTap: () {}),
-                      BuildMenuItem(title: 'Contact Us', onTap: () {}),
-                      BuildMenuItem(title: 'Privacy & Terms', onTap: () {}),
+                      BuildMenuItem(title: 'faq'.tr(), onTap: () {}),
+                      BuildMenuItem(title: 'contact_us'.tr(), onTap: () {}),
+                      BuildMenuItem(title: 'privacy_terms'.tr(), onTap: () {}),
                       BuildMenuItem(
-                        title: 'Delete Account',
+                        title: 'language'.tr(),
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text('language'.tr()),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  // en
+                                  ListTile(
+                                    title: Text('english'.tr()),
+                                    trailing:
+                                        context.locale.languageCode == 'en'
+                                        ? const Icon(Icons.check)
+                                        : null,
+                                    onTap: () {
+                                      context.setLocale(const Locale('en'));
+                                      pop(context);
+                                    },
+                                  ),
+                                  // ar
+                                  ListTile(
+                                    title: Text('arabic'.tr()),
+                                    trailing:
+                                        context.locale.languageCode == 'ar'
+                                        ? const Icon(Icons.check)
+                                        : null,
+                                    onTap: () {
+                                      context.setLocale(const Locale('ar'));
+                                      pop(context);
+                                    },
+                                  ),
+                                  // zh
+                                  ListTile(
+                                    title: Text('chinese'.tr()),
+                                    trailing:
+                                        context.locale.languageCode == 'zh'
+                                        ? const Icon(Icons.check)
+                                        : null,
+                                    onTap: () {
+                                      context.setLocale(const Locale('zh'));
+                                      pop(context);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      BuildMenuItem(
+                        title: 'delete_account'.tr(),
                         onTap: () {
                           context
                               .read<ProfileCubit>()
@@ -138,27 +192,25 @@ class ProfileScreen extends StatelessWidget {
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                              title: const Text('Delete Account'),
+                              title: Text('delete_account'.tr()),
                               content: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  const Text(
-                                    'Are you sure you want to delete your account? This action cannot be undone. Please enter your password to confirm.',
-                                  ),
+                                  Text('delete_account_message'.tr()),
                                   Gap(16),
                                   CustomTextFormField(
                                     controller: context
                                         .read<ProfileCubit>()
                                         .currentPasswordController,
 
-                                    hintText: 'Password',
+                                    hintText: 'password'.tr(),
                                   ),
                                 ],
                               ),
                               actions: [
                                 TextButton(
                                   onPressed: () => pop(context),
-                                  child: Text('Cancel'),
+                                  child: Text('cancel'.tr()),
                                 ),
                                 TextButton(
                                   onPressed: () {
@@ -168,7 +220,7 @@ class ProfileScreen extends StatelessWidget {
                                         .deleteAccount();
                                   },
                                   child: Text(
-                                    'Delete',
+                                    'delete'.tr(),
                                     style: TextStyle(color: AppColors.redColor),
                                   ),
                                 ),

@@ -1,6 +1,7 @@
 import 'package:bookia/core/widgets/shimmer/best_seller_shimmer.dart';
 import 'package:bookia/features/wishlist/presentation/cubit/wishlist_cubit.dart';
 import 'package:bookia/features/wishlist/presentation/widgets/wishlist_card.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,7 +22,7 @@ class WishlistBooks extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  "No books in wishlist",
+                  "no_books_in_wishlist".tr(),
                   style: TextStyle(fontSize: 16),
                 ),
               ),
@@ -48,7 +49,7 @@ class WishlistBooks extends StatelessWidget {
             },
           );
         } else if (state is WishlistErrorState) {
-          return Center(child: const Text("error"));
+          return Center(child: Text("error".tr()));
         } else {
           return const BestSellerShimmer();
         }

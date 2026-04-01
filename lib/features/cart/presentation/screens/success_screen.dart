@@ -3,6 +3,7 @@ import 'package:bookia/core/routes/routes.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/widgets/inputs/main_button.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
@@ -24,17 +25,17 @@ class SuccessScreen extends StatelessWidget {
               SvgPicture.asset(AppIcons.successMark, width: 120),
               const Gap(30),
               Text(
-                'SUCCESS!',
+                'success'.tr(),
                 style: TextStyles.fs30.copyWith(fontWeight: FontWeight.bold),
               ),
               const Gap(10),
               Text(
-                'Your order will be delivered soon.',
+                'your_order_will_be_delivered_soon'.tr(),
                 style: TextStyles.fs16.copyWith(color: AppColors.darkGray),
               ),
               const Gap(5),
               Text(
-                'Thank you for choosing our app!',
+                'thank_you_for_choosing_our_app'.tr(),
                 style: TextStyles.fs16.copyWith(color: AppColors.darkGray),
               ),
               const Gap(20),
@@ -42,7 +43,7 @@ class SuccessScreen extends StatelessWidget {
                 onPressed: () {
                   context.go(Routes.mainAppScreen);
                 },
-                text: 'Back To Home',
+                text: 'back_to_home'.tr(),
               ),
             ],
           ),

@@ -2,6 +2,7 @@ import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/widgets/shimmer/home_slider_shimmer.dart';
 import 'package:bookia/features/home/presentation/cubit/home_cubit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -68,7 +69,7 @@ class _HomeSliderState extends State<HomeSlider> {
             ],
           );
         } else if (state is HomeErrorState) {
-          return const Text("error");
+          return Text("error".tr());
         } else {
           return const HomeSliderShimmer();
         }

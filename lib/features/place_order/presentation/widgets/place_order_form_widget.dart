@@ -4,6 +4,7 @@ import 'package:bookia/core/utils/validators.dart';
 import 'package:bookia/core/widgets/inputs/custom_text_form_field.dart';
 import 'package:bookia/features/place_order/presentation/cubit/place_order_cubit.dart';
 import 'package:bookia/features/place_order/presentation/widgets/governorate_bottom_sheet_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -22,53 +23,59 @@ class PlaceOrderFormWidget extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 22),
-            child: Text(
-              'Place Your Order',
-              style: TextStyles.fs30.copyWith(
-                fontWeight: FontWeight.bold,
+            child: Align(
+              alignment: AlignmentDirectional.topStart,
+              child: Text(
+                'place_your_order'.tr(),
+                style: TextStyles.fs30.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
           const Gap(10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 22),
-            child: Text(
-              'Don\'t worry! It occurs. Please enter the email address linked with your account.',
-              style: TextStyles.fs16.copyWith(
-                color: AppColors.darkGray,
+            child: Align(
+              alignment: AlignmentDirectional.topStart,
+              child: Text(
+                'dont_worry_it_occurs'.tr(),
+                style: TextStyles.fs16.copyWith(
+                  color: AppColors.darkGray,
+                ),
               ),
             ),
           ),
           const Gap(30),
           CustomTextFormField(
             controller: cubit.nameController,
-            hintText: 'Full Name',
+            hintText: 'full_name'.tr(),
             validator: (value) => Validators().validatorName(value),
           ),
           const Gap(15),
           CustomTextFormField(
             controller: cubit.emailController,
-            hintText: 'Email',
+            hintText: 'email'.tr(),
             keyboardType: TextInputType.emailAddress,
             validator: (value) => Validators().validatorEmail(value),
           ),
           const Gap(15),
           CustomTextFormField(
             controller: cubit.addressController,
-            hintText: 'Address',
+            hintText: 'address'.tr(),
             validator: (value) => Validators().validatorAddress(value),
           ),
           const Gap(15),
           CustomTextFormField(
             controller: cubit.phoneController,
-            hintText: 'Phone',
+            hintText: 'phone'.tr(),
             keyboardType: TextInputType.phone,
             validator: (value) => Validators().validatorPhone(value),
           ),
           const Gap(15),
           CustomTextFormField(
             controller: cubit.governorateController,
-            hintText: 'Governorate',
+            hintText: 'governorate'.tr(),
             readOnly: true,
             suffixIcon: const Icon(
               Icons.keyboard_arrow_down,

@@ -10,6 +10,7 @@ import 'package:bookia/core/widgets/dialog.dart';
 import 'package:bookia/core/widgets/inputs/main_button.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bookia/features/auth/presentation/widgets/auth_text_action.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,8 +57,8 @@ class _OtpScreenState extends State<OtpScreen> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
           child: AuthTextAction(
-            text1: "Didn’t received code?",
-            text2: _remainingTime > 0 ? "($_remainingTime)" : "Resend",
+            text1: "didnt_receive_code".tr(),
+            text2: _remainingTime > 0 ? "($_remainingTime)" : "resend".tr(),
             onPressed: () {
               if (_remainingTime == 0) {
                 startTimeDown();
@@ -102,7 +103,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   padding: const EdgeInsets.only(left: 24),
                   child: Align(
                     alignment: AlignmentGeometry.topLeft,
-                    child: Text("OTP Verification", style: TextStyles.fs30),
+                    child: Text("otp_verification".tr(), style: TextStyles.fs30),
                   ),
                 ),
                 SizedBox(height: 16),
@@ -113,7 +114,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     child: Row(
                       children: [
                         Text(
-                          "Enter the verification code we just sent\n on your email address.",
+                          "enter_the_verification_code_we_just_sent_on_your_email_address".tr(),
                           style: TextStyles.fs16.copyWith(
                             color: AppColors.darkGray,
                           ),
@@ -164,7 +165,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     onPressed: () {
                       cubit.otpCode();
                     },
-                    text: "Verify",
+                    text: "verify".tr(),
                   ),
                 ),
 

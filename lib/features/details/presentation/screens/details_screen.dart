@@ -10,6 +10,7 @@ import 'package:bookia/features/details/presentation/widgets/wishlist_action/wis
 import 'package:bookia/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:bookia/features/wishlist/presentation/cubit/wishlist_cubit.dart';
 import 'package:bookia/features/home/data/models/best_sellers_response/product.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -33,7 +34,7 @@ class DetailsScreen extends StatelessWidget {
               pop(context);
               showAppSnackBar(
                 context,
-                "Failed to add to wishlist",
+                "failed_to_add_to_wishlist".tr(),
                 type: DialogType.error,
               );
             } else if (state is WishlistActionLoadingState) {
@@ -51,7 +52,7 @@ class DetailsScreen extends StatelessWidget {
               pop(context);
               showAppSnackBar(
                 context,
-                "Failed to add to cart",
+                "failed_to_add_to_cart".tr(),
                 type: DialogType.error,
               );
             } else if (state is CartActionLoadingState) {

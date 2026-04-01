@@ -1,6 +1,7 @@
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:bookia/features/cart/presentation/widgets/cart_item_tile.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,7 +17,7 @@ class CartItemWidget extends StatelessWidget {
         } else {
           var cubit = context.read<CartCubit>();
           if (cubit.products.isEmpty) {
-            return Center(child: Text('No Books in cart'));
+            return Center(child: Text('no_books_in_cart'.tr()));
           }
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),

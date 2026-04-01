@@ -11,6 +11,7 @@ import 'package:bookia/core/widgets/inputs/main_button.dart';
 import 'package:bookia/core/widgets/inputs/password_text_form_field.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bookia/features/auth/presentation/widgets/auth_text_action.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,8 +27,8 @@ class RegisterScreen extends StatelessWidget {
       create: (context) => AuthCubit(),
       child: Scaffold(
         bottomNavigationBar: AuthTextAction(
-          text1: "Already have an account?",
-          text2: " Login Now",
+          text1: "already_have_an_account".tr(),
+          text2: "login_now".tr(),
           onPressed: () {
             pop(context);
           },
@@ -63,11 +64,11 @@ class RegisterScreen extends StatelessWidget {
               children: [
                 Gap(28),
                 Padding(
-                  padding: const EdgeInsets.only(left: 24),
+                  padding: const EdgeInsetsDirectional.only(start: 24),
                   child: Align(
-                    alignment: AlignmentGeometry.topLeft,
+                    alignment: AlignmentDirectional.topStart,
                     child: Text(
-                      "Hello! Register to get started",
+                      "hello_register_to_get_started".tr(),
                       style: TextStyles.fs30,
                     ),
                   ),
@@ -76,28 +77,28 @@ class RegisterScreen extends StatelessWidget {
 
                 CustomTextFormField(
                   controller: cubit.usernameController,
-                  hintText: 'Username',
+                  hintText: 'username'.tr(),
                   validator: Validators().validatorName,
                 ),
                 Gap(11),
 
                 CustomTextFormField(
                   controller: cubit.emailController,
-                  hintText: "Email",
+                  hintText: "email".tr(),
                   validator: Validators().validatorEmail,
                 ),
                 Gap(11),
 
                 PasswordTextFormField(
                   controller: cubit.passwordController,
-                  text: 'Password',
+                  text: 'password'.tr(),
                   validator: Validators().validatorPassword,
                 ),
 
                 Gap(12),
                 PasswordTextFormField(
                   controller: cubit.confirmPasswordController,
-                  text: 'Confirm password',
+                  text: 'confirm_password'.tr(),
                   validator: (input) => Validators().validatorConfirmPassword(
                     input,
                     cubit.passwordController.text,
@@ -113,7 +114,7 @@ class RegisterScreen extends StatelessWidget {
                         cubit.register();
                       }
                     },
-                    text: "Register",
+                    text: "register".tr(),
                   ),
                 ),
               ],

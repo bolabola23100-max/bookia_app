@@ -18,6 +18,7 @@ A beautiful, feature-rich Flutter application designed for book lovers. This app
 - **Profile Management:** Edit profile details and update security settings.
 - **Networking & Storage:** API requests with [`dio`](https://pub.dev/packages/dio) and local caching with [`shared_preferences`](https://pub.dev/packages/shared_preferences).
 - **Animations:** Beautiful UI animations using [`lottie`](https://pub.dev/packages/lottie), [`carousel_slider`](https://pub.dev/packages/carousel_slider), and loading effects with [`shimmer`](https://pub.dev/packages/shimmer).
+- **🌍 Multi-Language Support:** Fully localized for **Arabic**, **English**, and **Chinese** with RTL (Right-to-Left) support for Arabic.
 
 ## 🛠 Tech Stack
 
@@ -98,3 +99,25 @@ A beautiful, feature-rich Flutter application designed for book lovers. This app
     </tr>
   </table>
 </div>
+
+### 🌍 Arabic & RTL Support
+ 
+ <div align="center">
+   <table>
+     <tr>
+       <td align="center"><b>Home (Arabic)</b><br><img src="Screenshots/home_arabic.jpeg" width="180"/></td>
+       <td align="center"><b>Details (Arabic)</b><br><img src="Screenshots/details_arabic.jpeg" width="180"/></td>
+       <td align="center"><b>Checkout (Arabic)</b><br><img src="Screenshots/checkout_arabic.jpeg" width="180"/></td>
+     </tr>
+     <tr>
+       <td align="center"><b>Profile (Arabic)</b><br><img src="Screenshots/profile_arabic.jpeg" width="180"/></td>
+       <td align="center"><b>Wishlist (Arabic)</b><br><img src="Screenshots/wishlist_arabic.jpeg" width="180"/></td>
+       <td align="center"><b>Update Password (Arabic)</b><br><img src="Screenshots/update_password_arabic.jpeg" width="180"/></td>
+     </tr>
+     <tr>
+       <td align="center"><b>Delete Account (Arabic)</b><br><img src="Screenshots/delete_account_arabic.jpeg" width="180"/></td>
+       <td align="center"><b>Empty Cart (Arabic)</b><br><img src="Screenshots/empty_cart_arabic.jpeg" width="180"/></td>
+       <td align="center">-</td>
+     </tr>
+   </table>
+ </div>

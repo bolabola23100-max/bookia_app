@@ -2,6 +2,7 @@ import 'package:bookia/core/constants/app_icons.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/widgets/dialog.dart';
 import 'package:bookia/features/cart/data/models/cart_response/cart_item.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
@@ -79,7 +80,9 @@ class CartItemTile extends StatelessWidget {
                           } else {
                             showAppSnackBar(
                               context,
-                              "cannot add more than ${item.itemProductStock} items",
+                              "cannot_add_more_than".tr(
+                                args: ["${item.itemProductStock}"],
+                              ),
                               type: DialogType.error,
                             );
                           }
@@ -107,7 +110,7 @@ class CartItemTile extends StatelessWidget {
                           } else {
                             showAppSnackBar(
                               context,
-                              "cannot remove less than 1",
+                              "cannot_remove_less_than_1".tr(),
                               type: DialogType.error,
                             );
                           }

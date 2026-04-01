@@ -4,6 +4,7 @@ import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/widgets/inputs/main_button.dart';
 import 'package:bookia/core/utils/navigations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
@@ -35,13 +36,13 @@ class WelcomePage extends StatelessWidget {
                   Spacer(flex: 2),
                   SvgPicture.asset(AppIcons.logo),
                   Gap(28),
-                  Text("Order Your Book Now!", style: TextStyles.fs20),
+                  Text("order_your_book_now".tr(), style: TextStyles.fs20),
                   Spacer(flex: 3),
                   MainButton(
                     onPressed: () {
                       pushTo(context, Routes.login);
                     },
-                    text: "Login",
+                    text: "login".tr(),
                     borderRadius: 10,
                   ),
                   SizedBox(height: 20),
@@ -50,7 +51,7 @@ class WelcomePage extends StatelessWidget {
                       // pushTo(context, RegisterScreen());
                       pushTo(context, Routes.register);
                     },
-                    text: "Register",
+                    text: "register".tr(),
                     borderRadius: 10,
                     textColor: AppColors.dark,
                     buttonColor: AppColors.bgColor,
