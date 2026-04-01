@@ -2,6 +2,7 @@ import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/widgets/custom_back_button.dart';
 import 'package:bookia/features/profile/presentation/cubit/history/history_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,7 +18,7 @@ class MyOrdersScreen extends StatelessWidget {
         elevation: 0,
         scrolledUnderElevation: 0,
         leading: const CustomBackButton(),
-        title: const Text('My Orders', style: TextStyles.fs20),
+        title: Text('my_orders'.tr(), style: TextStyles.fs20),
         centerTitle: false,
       ),
       body: BlocBuilder<HistoryCubit, HistoryState>(
@@ -50,8 +51,10 @@ class MyOrdersScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Order No${order.orderCode}',
-                            style: TextStyles.fs16),
+                        Text(
+                          'order_no'.tr() + '${order.orderCode}',
+                          style: TextStyles.fs16,
+                        ),
                         Text(
                           order.orderDate ?? '',
                           style: TextStyles.fs14.copyWith(
@@ -65,7 +68,7 @@ class MyOrdersScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          'Total Amount: ',
+                          'total_amount'.tr() + ': ',
                           style: TextStyles.fs16.copyWith(
                             color: AppColors.darkGray,
                           ),

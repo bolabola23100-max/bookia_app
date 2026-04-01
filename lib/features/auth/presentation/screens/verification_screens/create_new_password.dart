@@ -10,6 +10,7 @@ import 'package:bookia/core/widgets/dialog.dart';
 import 'package:bookia/core/widgets/inputs/main_button.dart';
 import 'package:bookia/core/widgets/inputs/password_text_form_field.dart';
 import 'package:bookia/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -64,7 +65,7 @@ class CreateNewPassword extends StatelessWidget {
                       child: Align(
                         alignment: AlignmentGeometry.topLeft,
                         child: Text(
-                          "Create New Password",
+                          "create_new_password".tr(),
                           style: TextStyles.fs30,
                         ),
                       ),
@@ -75,7 +76,7 @@ class CreateNewPassword extends StatelessWidget {
                         vertical: 12,
                       ),
                       child: Text(
-                        "Your new password must be unique from those previously used.",
+                        "your_new_password_must_be_unique_from_those_previously_used".tr(),
                         style: TextStyles.fs16.copyWith(
                           color: AppColors.darkGray,
                         ),
@@ -87,14 +88,14 @@ class CreateNewPassword extends StatelessWidget {
 
                     PasswordTextFormField(
                       controller: cubit.passwordController,
-                      text: 'Password',
+                      text: 'password'.tr(),
                       validator: Validators().validatorPassword,
                     ),
 
                     Gap(12),
                     PasswordTextFormField(
                       controller: cubit.confirmPasswordController,
-                      text: 'Confirm password',
+                      text: 'confirm_password'.tr(),
                       validator: (input) =>
                           Validators().validatorConfirmPassword(
                             input,
@@ -111,7 +112,7 @@ class CreateNewPassword extends StatelessWidget {
                             cubit.createNewPassword();
                           }
                         },
-                        text: "Reset Password",
+                        text: "reset_password".tr(),
                       ),
                     ),
                   ],

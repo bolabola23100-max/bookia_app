@@ -1,5 +1,6 @@
 import 'package:bookia/core/services/local/shared_pref.dart';
 import 'package:bookia/features/cart/data/repo/cart_repo.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 part 'cart_action_state.dart';
 
@@ -12,7 +13,7 @@ class CartActionCubit extends Cubit<CartActionState> {
       var products = data.data!.cartItems ?? [];
       SharedPref.cacheCartItems(products);
 
-      emit(CartActionSuccessState(message: "Added to Cart"));
+      emit(CartActionSuccessState(message: "added_to_cart".tr()));
     } else {
       emit(CartActionErrorState());
     }
@@ -25,7 +26,7 @@ class CartActionCubit extends Cubit<CartActionState> {
       var products = data.data!.cartItems ?? [];
       SharedPref.cacheCartItems(products);
 
-      emit(CartActionSuccessState(message: "Removed from Cart"));
+      emit(CartActionSuccessState(message: "removed_from_cart".tr()));
     } else {
       emit(CartActionErrorState());
     }

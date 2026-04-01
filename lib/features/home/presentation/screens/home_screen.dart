@@ -15,10 +15,11 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Align(
-            alignment: Alignment.centerLeft,
+            alignment: AlignmentDirectional.centerStart,
             child: SvgPicture.asset(AppIcons.logo, height: 30),
           ),
           actions: [
+            
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 13),
               child: IconButton(

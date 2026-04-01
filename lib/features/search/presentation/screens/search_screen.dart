@@ -5,6 +5,7 @@ import 'package:bookia/core/widgets/shimmer/best_seller_shimmer.dart';
 import 'package:bookia/features/home/data/models/best_sellers_response/product.dart';
 import 'package:bookia/features/search/presentation/cubit/search_cubit.dart';
 import 'package:bookia/features/search/presentation/widgets/search_card.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -31,7 +32,7 @@ class SearchScreen extends StatelessWidget {
                   children: [
                     const Gap(15),
                     CustomTextFormField(
-                      hintText: 'Search Store',
+                      hintText: 'search_store'.tr(),
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: SvgPicture.asset(AppIcons.search),
@@ -44,13 +45,13 @@ class SearchScreen extends StatelessWidget {
                     BlocBuilder<SearchCubit, SearchState>(
                       builder: (context, state) {
                         if (state is SearchErrorState) {
-                          return const Center(child: Text("Error"));
+                          return Center(child: Text("error".tr()));
                         } else if (state is SearchLoadingState) {
                           return const BestSellerShimmer();
                         } else if (state is SearchSuccessState) {
                           if (state.products.isEmpty) {
-                            return const Center(
-                              child: Text("No results found"),
+                            return Center(
+                              child: Text("no_results_found".tr()),
                             );
                           }
                           return GridView.builder(
@@ -73,8 +74,8 @@ class SearchScreen extends StatelessWidget {
                             },
                           );
                         }
-                        return const Center(
-                          child: Text("Search for your favorite books!"),
+                        return Center(
+                          child: Text("search_for_your_favorite_books".tr()),
                         );
                       },
                     ),

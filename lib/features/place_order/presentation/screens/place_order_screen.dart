@@ -5,6 +5,7 @@ import 'package:bookia/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:bookia/features/place_order/presentation/cubit/place_order_cubit.dart';
 import 'package:bookia/features/place_order/presentation/widgets/place_order_bottom_nav_widget.dart';
 import 'package:bookia/features/place_order/presentation/widgets/place_order_form_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bookia/core/routes/routes.dart';
@@ -24,7 +25,7 @@ class PlaceOrderScreen extends StatelessWidget {
           pop(context);
           showAppSnackBar(
             context,
-            "Place Order failed, please try again",
+            "place_order_failed".tr(),
             type: DialogType.error,
           );
         } else if (state is PlaceOrderLoadingState) {
