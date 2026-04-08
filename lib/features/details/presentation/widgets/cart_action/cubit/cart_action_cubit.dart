@@ -6,30 +6,43 @@ part 'cart_action_state.dart';
 
 class CartActionCubit extends Cubit<CartActionState> {
   CartActionCubit() : super(CartActionInitialState());
+
   Future<void> addToCart(int productId) async {
     emit(CartActionLoadingState());
     var data = await CartRepo().addToCart(productId);
-    if (data != null) {
-      var products = data.data!.cartItems ?? [];
-      SharedPref.cacheCartItems(products);
-
-      emit(CartActionSuccessState(message: "added_to_cart".tr()));
-    } else {
-      emit(CartActionErrorState());
-    }
+    data.fold(
+      (l) {
+        emit(CartActionErrorState());
+      },
+      (r) {
+        try {
+          var products = r.data?.cartItems ?? [];
+          SharedPref.cacheCartItems(products);
+          emit(CartActionSuccessState(message: "added_to_cart".tr()));
+        } catch (e) {
+          emit(CartActionErrorState());
+        }
+      },
+    );
   }
 
-  Future<void> removeFromCart(int productId) async {
+  Future<void> removeFromCart(int cartItemId) async {
     emit(CartActionLoadingState());
-    var data = await CartRepo().removeFromCart(productId);
-    if (data != null) {
-      var products = data.data!.cartItems ?? [];
-      SharedPref.cacheCartItems(products);
-
-      emit(CartActionSuccessState(message: "removed_from_cart".tr()));
-    } else {
-      emit(CartActionErrorState());
-    }
+    var data = await CartRepo().removeFromCart(cartItemId);
+    data.fold(
+      (l) {
+        emit(CartActionErrorState());
+      },
+      (r) {
+        try {
+          var products = r.data?.cartItems ?? [];
+          SharedPref.cacheCartItems(products);
+          emit(CartActionSuccessState(message: "removed_from_cart".tr()));
+        } catch (e) {
+          emit(CartActionErrorState());
+        }
+      },
+    );
   }
 
   bool isProductInCart(int productId) {

@@ -14,16 +14,30 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> inetLoadData() async {
     emit(HomeLoadingState());
 
-    var response = await Future.wait([
+    var responses = await Future.wait([
       HomeRepo.getSlider(),
       HomeRepo.getBestSellers(),
     ]);
-    var sliderResponse = response[0] as SliderResponse?;
-    var bestSellersResponse = response[1] as BestSellersResponse?;
 
-    if (sliderResponse != null || bestSellersResponse != null) {
-      sliders = sliderResponse?.data?.sliders ?? [];
-      products = bestSellersResponse?.data?.products ?? [];
+    bool isSuccess = false;
+
+    responses[0].fold(
+      (l) => null,
+      (r) {
+        sliders = (r as SliderResponse).data?.sliders ?? [];
+        isSuccess = true;
+      },
+    );
+
+    responses[1].fold(
+      (l) => null,
+      (r) {
+        products = (r as BestSellersResponse).data?.products ?? [];
+        isSuccess = true;
+      },
+    );
+
+    if (isSuccess) {
       emit(HomeSuccessState());
     } else {
       emit(HomeErrorState());

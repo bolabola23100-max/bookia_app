@@ -27,9 +27,7 @@ class PlaceOrderFormWidget extends StatelessWidget {
               alignment: AlignmentDirectional.topStart,
               child: Text(
                 'place_your_order'.tr(),
-                style: TextStyles.fs30.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyles.fs30.copyWith(fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -40,9 +38,7 @@ class PlaceOrderFormWidget extends StatelessWidget {
               alignment: AlignmentDirectional.topStart,
               child: Text(
                 'dont_worry_it_occurs'.tr(),
-                style: TextStyles.fs16.copyWith(
-                  color: AppColors.darkGray,
-                ),
+                style: TextStyles.fs16.copyWith(color: AppColors.darkGray),
               ),
             ),
           ),

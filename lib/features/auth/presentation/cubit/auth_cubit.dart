@@ -24,11 +24,14 @@ class AuthCubit extends Cubit<AuthState> {
         password: passwordController.text,
       ),
     );
-    if (response != null) {
-      emit(AuthSuccessState());
-    } else {
-      emit(AuthErrorState(message: "failed to login"));
-    }
+    response.fold(
+      (l) {
+        emit(AuthErrorState(message: l.message));
+      },
+      (r) {
+        emit(AuthSuccessState());
+      },
+    );
   }
 
   Future<void> register() async {
@@ -41,11 +44,14 @@ class AuthCubit extends Cubit<AuthState> {
         name: usernameController.text,
       ),
     );
-    if (response != null) {
-      emit(AuthSuccessState());
-    } else {
-      emit(AuthErrorState(message: "failed to register"));
-    }
+    response.fold(
+      (l) {
+        emit(AuthErrorState(message: l.message));
+      },
+      (r) {
+        emit(AuthSuccessState());
+      },
+    );
   }
 
   Future<void> forgetPassword() async {
@@ -53,11 +59,14 @@ class AuthCubit extends Cubit<AuthState> {
     var response = await VerificationRepo.forgetPassword(
       VerificationParams(email: emailController.text),
     );
-    if (response != null) {
-      emit(AuthSuccessState());
-    } else {
-      emit(AuthErrorState(message: "Failed to send code. Please try again."));
-    }
+    response.fold(
+      (l) {
+        emit(AuthErrorState(message: l.message));
+      },
+      (r) {
+        emit(AuthSuccessState());
+      },
+    );
   }
 
   Future<void> otpCode() async {
@@ -68,11 +77,14 @@ class AuthCubit extends Cubit<AuthState> {
         verifyCode: pinController.text,
       ),
     );
-    if (response != null) {
-      emit(AuthSuccessState());
-    } else {
-      emit(AuthErrorState(message: "Invalid verification code"));
-    }
+    response.fold(
+      (l) {
+        emit(AuthErrorState(message: l.message));
+      },
+      (r) {
+        emit(AuthSuccessState());
+      },
+    );
   }
 
   Future<void> createNewPassword() async {
@@ -85,12 +97,13 @@ class AuthCubit extends Cubit<AuthState> {
         newPasswordConfirmation: confirmPasswordController.text,
       ),
     );
-    if (response != null) {
-      emit(AuthSuccessState());
-    } else {
-      emit(
-        AuthErrorState(message: "Failed to reset password. Please try again."),
-      );
-    }
+    response.fold(
+      (l) {
+        emit(AuthErrorState(message: l.message));
+      },
+      (r) {
+        emit(AuthSuccessState());
+      },
+    );
   }
 }

@@ -11,10 +11,13 @@ class SearchCubit extends Cubit<SearchState> {
   Future<void> search(String name) async {
     emit(SearchLoadingState());
     var result = await searchRepo.search(name);
-    if (result != null) {
-  emit(SearchSuccessState(products: result.data?.products ?? []));
-    } else {
-      emit(SearchErrorState());
-    }
+    result.fold(
+      (l) {
+        emit(SearchErrorState());
+      },
+      (r) {
+        emit(SearchSuccessState(products: r.data?.products ?? []));
+      },
+    );
   }
 }

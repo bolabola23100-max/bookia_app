@@ -19,9 +19,9 @@ class OrderHistoryResponse {
       );
 
   Map<String, dynamic> toJson() => {
-        'data': data?.toJson(),
-        'message': message,
-        'error': error,
-        'status': status,
-      };
+    'data': data?.toJson(),
+    'message': message,
+    'error': error,
+    'status': status,
+  };
 }

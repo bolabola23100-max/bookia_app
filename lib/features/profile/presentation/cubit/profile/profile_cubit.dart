@@ -38,16 +38,19 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future<void> getProfile() async {
     emit(ProfileLoadingState());
     var data = await ProfileRepo().getProfile();
-    if (data != null) {
-      var user = User.fromJson(data.data!.toJson());
-      nameController.text = user.name ?? '';
-      addressController.text = user.address ?? '';
-      phoneController.text = user.phone ?? '';
-      await SharedPref.setUserInfo(user); // Save updated user locally
-      emit(ProfileSuccessState(user: user));
-    } else {
-      emit(ProfileErrorState());
-    }
+    data.fold(
+      (l) {
+        emit(ProfileErrorState());
+      },
+      (r) {
+        var user = User.fromJson(r.data!.toJson());
+        nameController.text = user.name ?? '';
+        addressController.text = user.address ?? '';
+        phoneController.text = user.phone ?? '';
+        SharedPref.setUserInfo(user);
+        emit(ProfileSuccessState(user: user));
+      },
+    );
   }
 
   Future<void> updateProfile() async {
@@ -58,12 +61,15 @@ class ProfileCubit extends Cubit<ProfileState> {
       phone: phoneController.text,
       imagePath: imagePath,
     );
-    if (data != null) {
-      emit(UpdateProfileSuccessState(user: User.fromJson(data.data!.toJson())));
-      getProfile();
-    } else {
-      emit(UpdateProfileErrorState());
-    }
+    data.fold(
+      (l) {
+        emit(UpdateProfileErrorState());
+      },
+      (r) {
+        emit(UpdateProfileSuccessState(user: User.fromJson(r.data!.toJson())));
+        getProfile();
+      },
+    );
   }
 
   Future<void> submitNewPassword() async {
@@ -73,11 +79,14 @@ class ProfileCubit extends Cubit<ProfileState> {
       newPassword: newPasswordController.text,
       confirmPassword: confirmPasswordController.text,
     );
-    if (isSuccess) {
-      emit(ChangePasswordSuccessState());
-    } else {
-      emit(ChangePasswordErrorState());
-    }
+    isSuccess.fold(
+      (l) {
+        emit(ChangePasswordErrorState());
+      },
+      (r) {
+        emit(ChangePasswordSuccessState());
+      },
+    );
   }
 
   Future<void> logout() async {
@@ -91,11 +100,14 @@ class ProfileCubit extends Cubit<ProfileState> {
     var isSuccess = await ProfileRepo().deleteProfile(
       currentPassword: currentPasswordController.text,
     );
-    if (isSuccess) {
-      await ProfileRepo().logout(); // Clear local data
-      emit(DeleteAccountSuccessState());
-    } else {
-      emit(DeleteAccountErrorState());
-    }
+    isSuccess.fold(
+      (l) {
+        emit(DeleteAccountErrorState());
+      },
+      (r) async {
+        await ProfileRepo().logout();
+        emit(DeleteAccountSuccessState());
+      },
+    );
   }
 }

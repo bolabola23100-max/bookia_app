@@ -27,7 +27,8 @@ class SearchScreen extends StatelessWidget {
               leading: const CustomBackButton(),
             ),
             body: SafeArea(
-              child: SingleChildScrollView( // رجعنا الـ Scroll الخارجي اللي كنت عامله
+              child: SingleChildScrollView(
+                // رجعنا الـ Scroll الخارجي اللي كنت عامله
                 child: Column(
                   children: [
                     const Gap(15),
@@ -50,22 +51,22 @@ class SearchScreen extends StatelessWidget {
                           return const BestSellerShimmer();
                         } else if (state is SearchSuccessState) {
                           if (state.products.isEmpty) {
-                            return Center(
-                              child: Text("no_results_found".tr()),
-                            );
+                            return Center(child: Text("no_results_found".tr()));
                           }
                           return GridView.builder(
-                            shrinkWrap: true, // دي اللي بتخليه يشتغل جوه SingleChildScrollView
-                            physics: const NeverScrollableScrollPhysics(), // بنقفل السكرول الداخلي
+                            shrinkWrap:
+                                true, // دي اللي بتخليه يشتغل جوه SingleChildScrollView
+                            physics:
+                                const NeverScrollableScrollPhysics(), // بنقفل السكرول الداخلي
                             padding: const EdgeInsets.symmetric(horizontal: 22),
                             itemCount: state.products.length,
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
-                              childAspectRatio: 0.65,
-                            ),
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 10,
+                                  childAspectRatio: 0.65,
+                                ),
                             itemBuilder: (context, index) {
                               var product = Product.fromJson(
                                 state.products[index],

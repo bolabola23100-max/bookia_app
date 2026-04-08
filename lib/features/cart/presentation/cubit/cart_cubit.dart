@@ -13,40 +13,47 @@ class CartCubit extends Cubit<CartState> {
   Future<void> getCart() async {
     emit(CartLoadingState());
     var data = await CartRepo().getCart();
-    if (data != null) {
-      products = data.data!.cartItems ?? [];
-      total = data.data?.total?.toString() ?? "";
-      SharedPref.cacheCartItems(products);
-
-      emit(CartSuccessState());
-    } else {
-      emit(CartErrorState());
-    }
+    data.fold(
+      (l) {
+        emit(CartErrorState());
+      },
+      (r) {
+        products = r.data!.cartItems ?? [];
+        total = r.data?.total?.toString() ?? "";
+        SharedPref.cacheCartItems(products);
+        emit(CartSuccessState());
+      },
+    );
   }
 
   Future<void> removeFromCart(int cartItemId) async {
     var data = await CartRepo().removeFromCart(cartItemId);
-    if (data != null) {
-      products = data.data!.cartItems ?? [];
-      total = data.data?.total?.toString() ?? "";
-      SharedPref.cacheCartItems(products);
-
-      emit(CartSuccessState());
-    } else {
-      emit(CartErrorState());
-    }
+    data.fold(
+      (l) {
+        emit(CartErrorState());
+      },
+      (r) {
+        products = r.data!.cartItems ?? [];
+        total = r.data?.total?.toString() ?? "";
+        SharedPref.cacheCartItems(products);
+        emit(CartSuccessState());
+      },
+    );
   }
 
   Future<void> updateCart(int cartItemId, int quantity) async {
     var data = await CartRepo().updateCart(cartItemId, quantity);
-    if (data != null) {
-      products = data.data!.cartItems ?? [];
-      total = data.data?.total?.toString() ?? "";
+    data.fold(
+      (l) {
+        emit(CartErrorState());
+      },
+      (r) {
+      products = r.data!.cartItems ?? [];
+      total = r.data?.total?.toString() ?? "";
       SharedPref.cacheCartItems(products);
 
       emit(CartSuccessState());
-    } else {
-      emit(CartErrorState());
     }
-  }
+ );
+ }
 }
