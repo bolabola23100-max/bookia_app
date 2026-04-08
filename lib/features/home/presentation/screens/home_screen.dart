@@ -13,31 +13,30 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Align(
-            alignment: AlignmentDirectional.centerStart,
-            child: SvgPicture.asset(AppIcons.logo, height: 30),
-          ),
-          actions: [
-            
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 13),
-              child: IconButton(
-                onPressed: () {
-                  pushTo(context, Routes.search);
-                },
-                icon: SvgPicture.asset(AppIcons.search, height: 24),
-              ),
-            ),
-          ],
+      appBar: AppBar(
+        title: Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: SvgPicture.asset(AppIcons.logo, height: 30),
         ),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [Gap(25), HomeSlider(), Gap(31), BestSeller()],
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 13),
+            child: IconButton(
+              onPressed: () {
+                pushTo(context, Routes.search);
+              },
+              icon: SvgPicture.asset(AppIcons.search, height: 24),
             ),
           ),
+        ],
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [Gap(25), HomeSlider(), Gap(31), BestSeller()],
+          ),
         ),
+      ),
     );
   }
 }

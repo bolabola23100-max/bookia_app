@@ -103,7 +103,10 @@ class _OtpScreenState extends State<OtpScreen> {
                   padding: const EdgeInsets.only(left: 24),
                   child: Align(
                     alignment: AlignmentGeometry.topLeft,
-                    child: Text("otp_verification".tr(), style: TextStyles.fs30),
+                    child: Text(
+                      "otp_verification".tr(),
+                      style: TextStyles.fs30,
+                    ),
                   ),
                 ),
                 SizedBox(height: 16),
@@ -114,7 +117,8 @@ class _OtpScreenState extends State<OtpScreen> {
                     child: Row(
                       children: [
                         Text(
-                          "enter_the_verification_code_we_just_sent_on_your_email_address".tr(),
+                          "enter_the_verification_code_we_just_sent_on_your_email_address"
+                              .tr(),
                           style: TextStyles.fs16.copyWith(
                             color: AppColors.darkGray,
                           ),

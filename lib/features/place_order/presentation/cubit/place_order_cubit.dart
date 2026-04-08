@@ -23,12 +23,15 @@ class PlaceOrderCubit extends Cubit<PlaceOrderState> {
   Future<void> getGovernorates() async {
     emit(GetGovernoratesLoadingState());
     var response = await PlaceOrderRepo.getGovernorates();
-    if (response != null && response.data != null) {
-      governorates = response.data!;
-      emit(GetGovernoratesSuccessState());
-    } else {
-      emit(GetGovernoratesErrorState());
-    }
+    response.fold(
+      (l) {
+        emit(GetGovernoratesErrorState());
+      },
+      (r) {
+        governorates = r.data ?? [];
+        emit(GetGovernoratesSuccessState());
+      },
+    );
   }
 
   Future<void> placeOrder() async {
@@ -46,10 +49,13 @@ class PlaceOrderCubit extends Cubit<PlaceOrderState> {
       governorateId: selectedGovernorateId!,
     );
 
-    if (success) {
-      emit(PlaceOrderSuccessState());
-    } else {
-      emit(PlaceOrderErrorState());
-    }
+    success.fold(
+      (l) {
+        emit(PlaceOrderErrorState());
+      },
+      (r) {
+        emit(PlaceOrderSuccessState());
+      },
+    );
   }
 }

@@ -76,7 +76,8 @@ class CreateNewPassword extends StatelessWidget {
                         vertical: 12,
                       ),
                       child: Text(
-                        "your_new_password_must_be_unique_from_those_previously_used".tr(),
+                        "your_new_password_must_be_unique_from_those_previously_used"
+                            .tr(),
                         style: TextStyles.fs16.copyWith(
                           color: AppColors.darkGray,
                         ),

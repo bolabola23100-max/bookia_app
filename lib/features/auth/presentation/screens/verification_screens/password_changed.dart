@@ -22,7 +22,9 @@ class PasswordChanged extends StatelessWidget {
               Gap(240),
               SvgPicture.asset(AppIcons.successMark),
               Gap(35),
-              Center(child: Text("password_changed".tr(), style: TextStyles.fs30)),
+              Center(
+                child: Text("password_changed".tr(), style: TextStyles.fs30),
+              ),
               Center(
                 child: Text(
                   "your_password_has_been_changed".tr(),

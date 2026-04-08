@@ -12,11 +12,14 @@ class HistoryCubit extends Cubit<HistoryState> {
   Future<void> getOrderHistory() async {
     emit(GetOrderHistoryLoadingState());
     var response = await ProfileRepo().getOrderHistory();
-    if (response != null && response.data != null) {
-      orders = response.data!.orders ?? [];
-      emit(GetOrderHistorySuccessState());
-    } else {
-      emit(GetOrderHistoryErrorState());
-    }
+    response.fold(
+      (l) {
+        emit(GetOrderHistoryErrorState());
+      },
+      (r) {
+        orders = r.data!.orders ?? [];
+        emit(GetOrderHistorySuccessState());
+      },
+    );
   }
 }

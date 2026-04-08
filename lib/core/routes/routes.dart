@@ -70,7 +70,8 @@ GoRouter router = GoRouter(
     GoRoute(path: Routes.home, builder: (context, state) => HomeScreen()),
     GoRoute(
       path: Routes.details,
-      builder: (context, state) => DetailsScreen(product: state.extra as Product),
+      builder: (context, state) =>
+          DetailsScreen(product: state.extra as Product),
     ),
     GoRoute(
       path: Routes.editProfile,

@@ -1,120 +1,119 @@
 import 'package:bookia/core/services/dio/apis.dart';
-import 'package:bookia/core/services/dio/dio_provider.dart';
+import 'package:bookia/core/services/dio/api/get_api.dart';
+import 'package:bookia/core/services/dio/api/post_api.dart';
+import 'package:bookia/core/services/dio/failure.dart';
 import 'package:bookia/core/services/local/shared_pref.dart';
 import 'package:bookia/features/profile/data/model/order_history_response/order_history_response.dart';
 import 'package:bookia/features/profile/data/model/profile_response/profile_response.dart';
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
 class ProfileRepo {
-  Future<OrderHistoryResponse?> getOrderHistory() async {
-    try {
-      var response = await DioProvider.get(
-        endpoint: Apis.orderHistory,
-        headers: {"Authorization": "Bearer ${SharedPref.getToken()}"},
-      );
-      if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return OrderHistoryResponse.fromJson(response.data);
-      } else {
-        return null;
-      }
-    } catch (e) {
-      return null;
-    }
+  Future<Either<Failure, OrderHistoryResponse>> getOrderHistory() async {
+    var response = await GetApi.getApi(
+      endpoint: Apis.orderHistory,
+      headers: {"Authorization": "Bearer ${SharedPref.getToken()}"},
+    );
+    return response.fold(
+      (l) {
+        return Left(l);
+      },
+      (r) {
+        var data = OrderHistoryResponse.fromJson({'data': r});
+        return Right(data);
+      },
+    );
   }
 
-  Future<ProfileResponse?> getProfile() async {
-    try {
-      var response = await DioProvider.get(
-        endpoint: Apis.profile,
-        headers: {"Authorization": "Bearer ${SharedPref.getToken()}"},
-      );
-      if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return ProfileResponse.fromJson(response.data);
-      } else {
-        return null;
-      }
-    } catch (e) {
-      return null;
-    }
+  Future<Either<Failure, ProfileResponse>> getProfile() async {
+    var response = await GetApi.getApi(
+      endpoint: Apis.profile,
+      headers: {"Authorization": "Bearer ${SharedPref.getToken()}"},
+    );
+    return response.fold(
+      (l) {
+        return Left(l);
+      },
+      (r) {
+        var data = ProfileResponse.fromJson({'data': r});
+        return Right(data);
+      },
+    );
   }
 
-  Future<ProfileResponse?> updateProfile({
+  Future<Either<Failure, ProfileResponse>> updateProfile({
     required String name,
     required String address,
     required String phone,
     required String? imagePath,
   }) async {
-    try {
-      FormData data = FormData.fromMap({
-        "name": name,
-        "address": address,
-        "phone": phone,
-      });
+    FormData data = FormData.fromMap({
+      "name": name,
+      "address": address,
+      "phone": phone,
+    });
 
-      if (imagePath != null) {
-        data.files.add(
-          MapEntry("image", await MultipartFile.fromFile(imagePath)),
-        );
-      }
-
-      var response = await DioProvider.post(
-        endpoint: Apis.updateProfile,
-        headers: {"Authorization": "Bearer ${SharedPref.getToken()}"},
-        data: data,
+    if (imagePath != null) {
+      data.files.add(
+        MapEntry("image", await MultipartFile.fromFile(imagePath)),
       );
-      if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return ProfileResponse.fromJson(response.data);
-      } else {
-        return null;
-      }
-    } catch (e) {
-      return null;
     }
+
+    var response = await PostApi.postApi(
+      endpoint: Apis.updateProfile,
+      headers: {"Authorization": "Bearer ${SharedPref.getToken()}"},
+      data: data,
+    );
+    return response.fold(
+      (l) {
+        return Left(l);
+      },
+      (r) {
+        var profileData = ProfileResponse.fromJson({'data': r});
+        return Right(profileData);
+      },
+    );
   }
 
-  Future<bool> changePassword({
+  Future<Either<Failure, bool>> changePassword({
     required String currentPassword,
     required String newPassword,
     required String confirmPassword,
   }) async {
-    try {
-      var response = await DioProvider.post(
-        endpoint: Apis.updatePassword,
-        headers: {"Authorization": "Bearer ${SharedPref.getToken()}"},
-        data: {
-          "current_password": currentPassword,
-          "new_password": newPassword,
-          "new_password_confirmation": confirmPassword,
-        },
-      );
-      if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (e) {
-      return false;
-    }
+    var response = await PostApi.postApi(
+      endpoint: Apis.updatePassword,
+      headers: {"Authorization": "Bearer ${SharedPref.getToken()}"},
+      data: {
+        "current_password": currentPassword,
+        "new_password": newPassword,
+        "new_password_confirmation": confirmPassword,
+      },
+    );
+    return response.fold(
+      (l) {
+        return Left(l);
+      },
+      (r) {
+        return Right(true);
+      },
+    );
   }
 
-  Future<bool> deleteProfile({required String currentPassword}) async {
-    try {
-      FormData data = FormData.fromMap({
-        "current_password": currentPassword,
-      });
-      var response = await DioProvider.post(
-        endpoint: Apis.deleteProfile,
-        headers: {"Authorization": "Bearer ${SharedPref.getToken()}"},
-        data: data,
-      );
-      if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (e) {
-      return false;
-    }
+  Future<Either<Failure, bool>> deleteProfile({required String currentPassword}) async {
+    FormData data = FormData.fromMap({"current_password": currentPassword});
+    var response = await PostApi.postApi(
+      endpoint: Apis.deleteProfile,
+      headers: {"Authorization": "Bearer ${SharedPref.getToken()}"},
+      data: data,
+    );
+    return response.fold(
+      (l) {
+        return Left(l);
+      },
+      (r) {
+        return Right(true);
+      },
+    );
   }
 
   Future<void> logout() async {

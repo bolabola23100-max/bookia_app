@@ -79,7 +79,8 @@ class ForgotPasswordScreen extends StatelessWidget {
                   child: Align(
                     alignment: AlignmentGeometry.topLeft,
                     child: Text(
-                      "dont_worry_it_occurs_please_enter_the_email_address_linked_with_your_account".tr(),
+                      "dont_worry_it_occurs_please_enter_the_email_address_linked_with_your_account"
+                          .tr(),
                       style: TextStyles.fs16.copyWith(
                         color: AppColors.darkGray,
                       ),

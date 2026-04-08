@@ -8,30 +8,34 @@ part 'wishlist_state.dart';
 class WishlistCubit extends Cubit<WishlistState> {
   List<Product> products = [];
   WishlistCubit() : super(WishlistInitialState());
+
   Future<void> getWishlist() async {
     emit(WishlistLoadingState());
     var data = await WishlistRepo().getWishlist();
-    if (data != null) {
-      products = data.data!.data ?? [];
-
-      SharedPref.cacheWishListIds(products);
-
-      emit(WishlistSuccessState());
-    } else {
-      emit(WishlistErrorState());
-    }
+    data.fold(
+      (l) {
+        emit(WishlistErrorState());
+      },
+      (r) {
+        products = r.data!.data ?? [];
+        SharedPref.cacheWishListIds(products);
+        emit(WishlistSuccessState());
+      },
+    );
   }
 
   Future<void> removeFromWishlist(int productId) async {
     emit(WishlistLoadingState());
     var data = await WishlistRepo().removeFromWishlist(productId);
-    if (data != null) {
-      products = data.data!.data ?? [];
-      SharedPref.cacheWishListIds(products);
-
-      emit(WishlistSuccessState());
-    } else {
-      emit(WishlistErrorState());
-    }
+    data.fold(
+      (l) {
+        emit(WishlistErrorState());
+      },
+      (r) {
+        products = r.data!.data ?? [];
+        SharedPref.cacheWishListIds(products);
+        emit(WishlistSuccessState());
+      },
+    );
   }
 }
