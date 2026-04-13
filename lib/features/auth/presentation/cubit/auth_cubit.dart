@@ -1,14 +1,19 @@
+import 'package:bookia/core/di/service_locator.dart';
 import 'package:bookia/features/auth/data/models/verification_params.dart';
 import 'package:bookia/features/auth/data/models/register_params.dart';
-import 'package:bookia/features/auth/data/repo/auth_repo.dart';
-import 'package:bookia/features/auth/data/repo/verification_repo.dart';
+import 'package:bookia/features/auth/domain/usecases/login_usecases.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bookia/features/auth/domain/usecases/register_usecases.dart';
+import 'package:bookia/features/auth/domain/usecases/forget_password_usecases.dart';
+import 'package:bookia/features/auth/domain/usecases/verifycode_usecases.dart';
+import 'package:bookia/features/auth/domain/usecases/create_new_password_usecases.dart';
 
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitialState());
+
   final formKey = GlobalKey<FormState>();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
@@ -18,8 +23,8 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> login() async {
     emit(AuthLoadingState());
-    var response = await AuthRepo.login(
-      RegisterParams(
+    var response = await getIt<LoginUseCases>().call(
+      AuthParams(
         email: emailController.text,
         password: passwordController.text,
       ),
@@ -36,8 +41,8 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> register() async {
     emit(AuthLoadingState());
-    var response = await AuthRepo.register(
-      RegisterParams(
+    var response = await getIt<RegisterUseCases>().call(
+      AuthParams(
         email: emailController.text,
         password: passwordController.text,
         passwordConfirmation: confirmPasswordController.text,
@@ -56,8 +61,8 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> forgetPassword() async {
     emit(AuthLoadingState());
-    var response = await VerificationRepo.forgetPassword(
-      VerificationParams(email: emailController.text),
+    var response = await getIt<ForgetPasswordUseCases>().call(
+      emailController.text,
     );
     response.fold(
       (l) {
@@ -71,7 +76,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> otpCode() async {
     emit(AuthLoadingState());
-    var response = await VerificationRepo.verifyCode(
+    var response = await getIt<VerifyCodeUseCases>().call(
       VerificationParams(
         email: emailController.text,
         verifyCode: pinController.text,
@@ -89,7 +94,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> createNewPassword() async {
     emit(AuthLoadingState());
-    var response = await VerificationRepo.createNewPassword(
+    var response = await getIt<CreateNewPasswordUseCases>().call(
       VerificationParams(
         email: emailController.text,
         verifyCode: pinController.text,

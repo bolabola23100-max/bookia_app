@@ -1,5 +1,7 @@
+import 'package:bookia/core/di/service_locator.dart';
 import 'package:bookia/core/services/local/shared_pref.dart';
-import 'package:bookia/features/cart/data/repo/cart_repo.dart';
+import 'package:bookia/features/cart/domain/usecases/add_to_cart_usecase.dart';
+import 'package:bookia/features/cart/domain/usecases/remove_from_cart_usecase.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 part 'cart_action_state.dart';
@@ -9,7 +11,7 @@ class CartActionCubit extends Cubit<CartActionState> {
 
   Future<void> addToCart(int productId) async {
     emit(CartActionLoadingState());
-    var data = await CartRepo().addToCart(productId);
+    var data = await getIt<AddToCartUseCase>().call(productId);
     data.fold(
       (l) {
         emit(CartActionErrorState());
@@ -28,7 +30,7 @@ class CartActionCubit extends Cubit<CartActionState> {
 
   Future<void> removeFromCart(int cartItemId) async {
     emit(CartActionLoadingState());
-    var data = await CartRepo().removeFromCart(cartItemId);
+    var data = await getIt<RemoveFromCartUseCase>().call(cartItemId);
     data.fold(
       (l) {
         emit(CartActionErrorState());

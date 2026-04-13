@@ -1,6 +1,11 @@
+import 'package:bookia/core/di/service_locator.dart';
 import 'package:bookia/features/auth/data/models/auth_response/user.dart';
-import 'package:bookia/features/profile/data/repo/profile_repo.dart';
 import 'package:bookia/core/services/local/shared_pref.dart';
+import 'package:bookia/features/profile/domain/usecases/change_password_usecase.dart';
+import 'package:bookia/features/profile/domain/usecases/delete_profile_usecase.dart';
+import 'package:bookia/features/profile/domain/usecases/get_profile_usecase.dart';
+import 'package:bookia/features/profile/domain/usecases/logout_usecase.dart';
+import 'package:bookia/features/profile/domain/usecases/update_profile_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -37,7 +42,7 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   Future<void> getProfile() async {
     emit(ProfileLoadingState());
-    var data = await ProfileRepo().getProfile();
+    var data = await getIt<GetProfileUseCase>().call();
     data.fold(
       (l) {
         emit(ProfileErrorState());
@@ -55,7 +60,7 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   Future<void> updateProfile() async {
     emit(UpdateProfileLoadingState());
-    var data = await ProfileRepo().updateProfile(
+    var data = await getIt<UpdateProfileUseCase>().call(
       name: nameController.text,
       address: addressController.text,
       phone: phoneController.text,
@@ -74,7 +79,7 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   Future<void> submitNewPassword() async {
     emit(ChangePasswordLoadingState());
-    var isSuccess = await ProfileRepo().changePassword(
+    var isSuccess = await getIt<ChangePasswordUseCase>().call(
       currentPassword: currentPasswordController.text,
       newPassword: newPasswordController.text,
       confirmPassword: confirmPasswordController.text,
@@ -91,13 +96,13 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   Future<void> logout() async {
     emit(LogoutLoadingState());
-    await ProfileRepo().logout();
+    await getIt<LogoutUseCase>().call();
     emit(LogoutSuccessState());
   }
 
   Future<void> deleteAccount() async {
     emit(DeleteAccountLoadingState());
-    var isSuccess = await ProfileRepo().deleteProfile(
+    var isSuccess = await getIt<DeleteProfileUseCase>().call(
       currentPassword: currentPasswordController.text,
     );
     isSuccess.fold(
@@ -105,7 +110,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         emit(DeleteAccountErrorState());
       },
       (r) async {
-        await ProfileRepo().logout();
+        await getIt<LogoutUseCase>().call();
         emit(DeleteAccountSuccessState());
       },
     );
