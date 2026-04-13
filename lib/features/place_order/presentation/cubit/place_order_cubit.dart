@@ -1,5 +1,7 @@
+import 'package:bookia/core/di/service_locator.dart';
 import 'package:bookia/features/place_order/data/models/governorates_response/governorate.dart';
-import 'package:bookia/features/place_order/data/repo/place_order_repo.dart';
+import 'package:bookia/features/place_order/domain/usecases/get_governorates_usecase.dart';
+import 'package:bookia/features/place_order/domain/usecases/place_order_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,7 +24,7 @@ class PlaceOrderCubit extends Cubit<PlaceOrderState> {
 
   Future<void> getGovernorates() async {
     emit(GetGovernoratesLoadingState());
-    var response = await PlaceOrderRepo.getGovernorates();
+    var response = await getIt<GetGovernoratesUseCase>().call();
     response.fold(
       (l) {
         emit(GetGovernoratesErrorState());
@@ -41,7 +43,7 @@ class PlaceOrderCubit extends Cubit<PlaceOrderState> {
     }
 
     emit(PlaceOrderLoadingState());
-    var success = await PlaceOrderRepo.placeOrder(
+    var success = await getIt<PlaceOrderUseCase>().call(
       name: nameController.text,
       email: emailController.text,
       address: addressController.text,

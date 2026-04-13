@@ -1,5 +1,7 @@
+import 'package:bookia/core/di/service_locator.dart';
 import 'package:bookia/core/services/local/shared_pref.dart';
-import 'package:bookia/features/wishlist/data/repo/wishlist_repo.dart';
+import 'package:bookia/features/wishlist/domain/usecases/add_to_wishlist_usecase.dart';
+import 'package:bookia/features/wishlist/domain/usecases/remove_from_wishlist_usecase.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 part 'wishlist_action_state.dart';
@@ -9,7 +11,7 @@ class WishlistActionCubit extends Cubit<WishlistActionState> {
 
   Future<void> addToWishlist(int productId) async {
     emit(WishlistActionLoadingState());
-    var data = await WishlistRepo().addToWishlist(productId);
+    var data = await getIt<AddToWishlistUseCase>().call(productId);
     data.fold(
       (l) {
         emit(WishlistActionErrorState());
@@ -28,7 +30,7 @@ class WishlistActionCubit extends Cubit<WishlistActionState> {
 
   Future<void> removeFromWishlist(int productId) async {
     emit(WishlistActionLoadingState());
-    var data = await WishlistRepo().removeFromWishlist(productId);
+    var data = await getIt<RemoveFromWishlistUseCase>().call(productId);
     data.fold(
       (l) {
         emit(WishlistActionErrorState());

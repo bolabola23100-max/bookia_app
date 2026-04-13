@@ -1,15 +1,10 @@
-class RegisterParams {
+class AuthParams {
   String? name;
   String? email;
   String? password;
   String? passwordConfirmation;
 
-  RegisterParams({
-    this.name,
-    this.email,
-    this.password,
-    this.passwordConfirmation,
-  });
+  AuthParams({this.name, this.email, this.password, this.passwordConfirmation});
 
   Map<String, dynamic> toJson() => {
     'name': name,

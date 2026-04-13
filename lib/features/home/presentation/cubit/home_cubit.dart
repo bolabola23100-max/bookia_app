@@ -1,8 +1,10 @@
+import 'package:bookia/core/di/service_locator.dart';
 import 'package:bookia/features/home/data/models/best_sellers_response/best_sellers_response.dart';
 import 'package:bookia/features/home/data/models/best_sellers_response/product.dart';
 import 'package:bookia/features/home/data/models/slider_response/slider.dart';
 import 'package:bookia/features/home/data/models/slider_response/slider_response.dart';
-import 'package:bookia/features/home/data/repo/home_repo.dart';
+import 'package:bookia/features/home/domain/usecases/get_best_sellers_usecase.dart';
+import 'package:bookia/features/home/domain/usecases/get_sliders_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'home_state.dart';
@@ -15,8 +17,8 @@ class HomeCubit extends Cubit<HomeState> {
     emit(HomeLoadingState());
 
     var responses = await Future.wait([
-      HomeRepo.getSlider(),
-      HomeRepo.getBestSellers(),
+      getIt<GetSlidersUseCase>().call(),
+      getIt<GetBestSellersUseCase>().call(),
     ]);
 
     bool isSuccess = false;
